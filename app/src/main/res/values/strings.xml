@@ -98,4 +98,12 @@
     <string name="sjsu_id">SJSU ID:</string>
     <string name="password">Password:</string>
     <string name="submit">Submit</string>
+    <string name="create_poll">Create Poll</string>
+    <string name="create_rating">Create Rating</string>
+    <string name="view_edit_polls">View / Edit Polls</string>
+    <string name="view_all_polls">View All Polls</string>
+    <string name="view_edit_raitngs">View / Edit Raitngs</string>
+    <string name="view_all_ratings">View All Ratings</string>
+    <string name="hello">HELLO</string>
+    <string name="logout">LOGOUT!</string>
 </resources>
