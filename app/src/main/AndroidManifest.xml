@@ -16,11 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignUp" />
         <activity
             android:name=".CreatePoll"
             android:label="@string/title_activity_create_poll"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateRating"></activity>
+        <activity android:name=".CreateRating" />
+        <activity android:name=".Menu"></activity>
     </application>
 
 </manifest>
