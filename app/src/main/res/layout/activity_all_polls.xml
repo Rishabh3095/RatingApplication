@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.rishabh.myapplication.AllPolls">
 
+    <EditText
+        android:id="@+id/first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="First title"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="84dp" />
 </android.support.constraint.ConstraintLayout>

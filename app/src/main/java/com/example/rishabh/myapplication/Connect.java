@@ -105,7 +105,7 @@ public class Connect {
         ArrayList<HashMap<String, String>> ratingsList;
 
         // url to get all posted ratings
-        String url_get_ratings = "sftp://ec2-54-190-23-110.us-west-2.compute.amazonaws.com/home/ec2-user/php-backend/get_all_ratings.php";
+        String url_get_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_all_ratings.php";
 
         ratingsList = new ArrayList<HashMap<String, String>>();
 
