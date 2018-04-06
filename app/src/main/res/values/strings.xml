@@ -106,4 +106,6 @@
     <string name="view_all_ratings">View All Ratings</string>
     <string name="hello">HELLO</string>
     <string name="logout">LOGOUT!</string>
+    <string name="title_activity_user_ratings">UserRatings</string>
+    <string name="title_activity_user_polls">UserPolls</string>
 </resources>

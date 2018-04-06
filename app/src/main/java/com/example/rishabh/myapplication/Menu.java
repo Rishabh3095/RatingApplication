@@ -46,28 +46,28 @@ public class Menu extends AppCompatActivity {
         userRatings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Menu.this, UserRatings.class));
             }
         });
 
         userPolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Menu.this, UserPolls.class));
             }
         });
 
         viewAllRatings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Menu.this, AllRatings.class));
             }
         });
 
         viewAllPolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Menu.this, AllPolls.class));
             }
         });
 
