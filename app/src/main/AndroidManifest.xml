@@ -22,7 +22,7 @@
             android:label="@string/title_activity_create_poll"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateRating" />
-        <activity android:name=".Menu" />
+        <activity android:name=".Menuuuuu" />
         <activity
             android:name=".UserRatings"
             android:label="@string/title_activity_user_ratings"
@@ -32,7 +32,8 @@
             android:label="@string/title_activity_user_polls"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AllRatings" />
-        <activity android:name=".AllPolls"></activity>
+        <activity android:name=".AllPolls" />
+        <activity android:name=".Menu"></activity>
     </application>
 
 </manifest>

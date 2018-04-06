@@ -1,12 +1,12 @@
 package com.example.rishabh.myapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class Menu extends AppCompatActivity {
+public class Menuuuuu extends AppCompatActivity {
 
     Button createPoll;
     Button createRating;
@@ -19,7 +19,7 @@ public class Menu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu2);
+        setContentView(R.layout.activity_menu);
 
         createPoll = (Button) findViewById(R.id.button_create_poll);
         createRating = (Button) findViewById(R.id.button_create_rating);
@@ -32,42 +32,42 @@ public class Menu extends AppCompatActivity {
         createPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, CreatePoll.class));
+                startActivity(new Intent(Menuuuuu.this, CreatePoll.class));
             }
         });
 
         createRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, CreateRating.class));
+                startActivity(new Intent(Menuuuuu.this, CreateRating.class));
             }
         });
 
         userRatings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, UserRatings.class));
+                startActivity(new Intent(Menuuuuu.this, UserRatings.class));
             }
         });
 
         userPolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, UserPolls.class));
+                startActivity(new Intent(Menuuuuu.this, UserPolls.class));
             }
         });
 
         viewAllRatings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, AllRatings.class));
+                startActivity(new Intent(Menuuuuu.this, AllRatings.class));
             }
         });
 
         viewAllPolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Menu.this, AllPolls.class));
+                startActivity(new Intent(Menuuuuu.this, AllPolls.class));
             }
         });
 
@@ -78,4 +78,4 @@ public class Menu extends AppCompatActivity {
             }
         });
     }
-    }
+}

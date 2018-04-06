@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu">
+
+    <Button
+        android:id="@+id/button_create_poll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="25dp"
+        android:text="@string/create_poll"
+        app:layout_constraintBottom_toTopOf="@+id/button_view_edit_polls"
+        app:layout_constraintLeft_toLeftOf="@+id/button_view_edit_polls"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <Button
+        android:id="@+id/button_create_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_create_poll"
+        android:layout_alignBottom="@+id/button_create_poll"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/button_view_edit_polls"
+        android:layout_toRightOf="@+id/button_view_edit_polls"
+        android:text="@string/create_rating"
+        app:layout_constraintBottom_toTopOf="@+id/button_view_edit_ratings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <Button
+        android:id="@+id/button_view_edit_polls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_create_poll"
+        android:layout_alignStart="@+id/button_create_poll"
+        android:layout_below="@+id/button_create_poll"
+        android:layout_marginBottom="211dp"
+        android:layout_marginRight="28dp"
+        android:text="@string/view_edit_polls"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <Button
+        android:id="@+id/button_view_all_polls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_view_edit_polls"
+        android:layout_alignStart="@+id/button_view_edit_polls"
+        android:layout_below="@+id/button_view_edit_polls"
+        android:layout_marginTop="22dp"
+        android:text="@string/view_all_polls"
+        app:layout_constraintLeft_toLeftOf="@+id/button_view_edit_polls"
+        app:layout_constraintTop_toBottomOf="@+id/button_view_edit_polls"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/button_view_edit_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_view_edit_polls"
+        android:layout_alignBottom="@+id/button_view_edit_polls"
+        android:layout_alignLeft="@+id/button_create_rating"
+        android:layout_alignStart="@+id/button_create_rating"
+        android:layout_marginLeft="16dp"
+        android:text="@string/view_edit_raitngs"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_view_edit_polls"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <Button
+        android:id="@+id/button_view_all_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_view_all_polls"
+        android:layout_alignBottom="@+id/button_view_all_polls"
+        android:layout_alignLeft="@+id/button_view_edit_ratings"
+        android:layout_alignStart="@+id/button_view_edit_ratings"
+        android:layout_marginLeft="16dp"
+        android:text="@string/view_all_ratings"
+        app:layout_constraintBottom_toBottomOf="@+id/button_view_all_polls"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_view_all_polls"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="89dp"
+        android:text="@string/hello"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_create_rating"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button_logout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/logout"
+        app:layout_constraintBottom_toTopOf="@+id/button_create_poll"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintLeft_toRightOf="@+id/button_create_rating"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.077"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+</android.support.constraint.ConstraintLayout>
