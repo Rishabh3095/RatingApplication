@@ -21,7 +21,7 @@ $db = new DB_CONNECT();
         while ($row = mysql_fetch_array($result)) {
             // temp user array
             $rating = array();
-            $rating["ratingID"]
+            $rating["ratingID"]= $result["ratingID"];
             $rating["title"] = $result["title"];
             $rating["sjsuid"] = $result["user"];
             $rating["date"] = $result["date"];

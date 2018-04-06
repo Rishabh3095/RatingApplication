@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RatingAppl.iml" filepath="$PROJECT_DIR$/RatingAppl.iml" />
       <module fileurl="file://$PROJECT_DIR$/RatingApplication.iml" filepath="$PROJECT_DIR$/RatingApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
