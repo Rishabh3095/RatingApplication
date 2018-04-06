@@ -22,7 +22,6 @@
             android:label="@string/title_activity_create_poll"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateRating" />
-        <activity android:name=".Menuuuuu" />
         <activity
             android:name=".UserRatings"
             android:label="@string/title_activity_user_ratings"

@@ -30,7 +30,7 @@ public class CreateRating extends AppCompatActivity {
         Rating_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CreateRating.this, Menuuuuu.class));
+                startActivity(new Intent(CreateRating.this, Menu.class));
             }
         });
 
