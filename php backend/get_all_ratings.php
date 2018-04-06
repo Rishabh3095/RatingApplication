@@ -42,7 +42,5 @@ $db = new DB_CONNECT();
 
         // echo no users JSON
         echo json_encode($response);
-} else {
-
-}
+    }
 ?>
