@@ -21,11 +21,11 @@ $db = new DB_CONNECT();
         while ($row = mysql_fetch_array($result)) {
             // temp user array
             $rating = array();
-            $rating["ratingID"]= $result["ratingID"];
-            $rating["title"] = $result["title"];
-            $rating["sjsuid"] = $result["user"];
-            $rating["date"] = $result["date"];
-            $rating["maxRate"] = $result["maxRate"];
+            $rating["ratingID"]= $row["ratingID"];
+            $rating["title"] = $row["title"];
+            $rating["sjsuid"] = $row["user"];
+            $rating["date"] = $row["date"];
+            $rating["maxRate"] = $row["maxRate"];
 
             // push single product into final response array
             array_push($response["ratings"], $rating);
