@@ -17,6 +17,7 @@
         android:layout_marginTop="36dp"
         android:text="Create Rating"
         android:textSize="36sp"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/create_rating_range"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,8 +29,9 @@
         android:layout_marginEnd="19dp"
         android:layout_marginRight="19dp"
         android:layout_marginTop="16dp"
-        android:text="Back"
+        android:text="menu"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,8 +43,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="136dp"
         android:ems="10"
+        android:hint="Enter the title"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,8 +56,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="Enter the range of your rating"
         android:inputType="number"
-        android:text="Enter the range of your rating"
         app:layout_constraintBottom_toTopOf="@+id/create_rating_post"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_rating_heading" />
@@ -65,9 +67,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:text="Post"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/create_rating_range"
         app:layout_constraintTop_toBottomOf="@+id/create_rating_range" />

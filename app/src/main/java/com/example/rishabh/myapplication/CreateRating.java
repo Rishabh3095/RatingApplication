@@ -37,7 +37,7 @@ public class CreateRating extends AppCompatActivity {
         Rating_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(CreateRating.this, UserRatings.class));
             }
         });
     }

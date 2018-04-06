@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class UserPolls extends AppCompatActivity {
 
     TextView userPollsHeading;
-    Button userPollBack;
+    Button userPollToMenu;
     Button userPollAllPolls;
 
     @Override
@@ -24,10 +24,10 @@ public class UserPolls extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         userPollsHeading = (TextView) findViewById(R.id.user_polls);
-        userPollBack = (Button) findViewById(R.id.user_polls_back);
+        userPollToMenu = (Button) findViewById(R.id.user_polls_back);
         userPollAllPolls = (Button) findViewById(R.id.user_polls_to_all_polls);
 
-        userPollBack.setOnClickListener(new View.OnClickListener() {
+        userPollToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserPolls.this, Menu.class));
