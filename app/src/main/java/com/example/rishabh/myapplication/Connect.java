@@ -246,6 +246,41 @@ public class Connect {
         }
         return false;
     }
+    public static boolean createOptions(String title, String sjsuid) {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_options = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_options.php";
+        //
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+        params.add(new BasicNameValuePair("sjsuid", sjsuid));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_options,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static ArrayList<HashMap<String, String>> getAllPolls() {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
@@ -308,6 +343,9 @@ public class Connect {
         }
         return null;
     }
+
+
+
     public static ArrayList<HashMap<String, String>> getUser(String sjsuID) {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
