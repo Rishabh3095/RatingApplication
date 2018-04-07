@@ -17,11 +17,12 @@ public class Menu extends AppCompatActivity {
     Button viewAllRatings;
     Button viewAllPolls;
     EditText name_of_user;
-
+    String name = User.get().getName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu2);
+        System.out.println(name);
 
         name_of_user = (EditText) findViewById(R.id.name_of_user);
         createPoll = (Button) findViewById(R.id.button_create_poll);
@@ -31,6 +32,8 @@ public class Menu extends AppCompatActivity {
         viewAllPolls = (Button) findViewById(R.id.button_view_all_polls);
         viewAllRatings = (Button) findViewById(R.id.button_view_all_ratings);
         logOut = (Button) findViewById(R.id.button_logout);
+
+        name_of_user.setText(name);
 
         createPoll.setOnClickListener(new View.OnClickListener() {
             @Override
