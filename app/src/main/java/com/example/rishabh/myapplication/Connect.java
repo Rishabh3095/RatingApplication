@@ -22,11 +22,16 @@ public class Connect {
     public static final String TAG_OPTION = "option";
     public static final String TAG_RATING_ID = "ratingID";
     public static final String TAG_RATINGS = "ratings";
+    public static final String TAG_FIRST_NAME = "firstName";
+    public static final String TAG_LAST_NAME = "lastName";
     public static final String TAG_POLL_ID = "pollID";
     public static final String TAG_POLLS = "polls";
     public static final String TAG_MAX_RATE = "maxRate";
     public static final String TAG_DATE = "date";
     public static final String TAG_TITLE = "title";
+    public static final String TAG_PASSWORD = "Password";
+    public static final String TAG_USER = "User";
+
 
 
     public static boolean newUser(String sjsuid, String first_name, String last_name, String password) {
@@ -295,6 +300,69 @@ public class Connect {
                     pollsList.add(map);
                 }
                 return pollsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static ArrayList<HashMap<String, String>> getName(String sjsuID) {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> name;
+
+        // url to get all posted ratings
+        String url_get_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_user.php";
+
+        name = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray user = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_ratings, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("User: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                user = json.getJSONArray(TAG_USER);
+
+                // looping through All activities
+                for (int i = 0; i < user.length(); i++) {
+                    JSONObject c = user.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String SJSUID = c.getString(TAG_SJSUID);
+                    String Password = c.getString(TAG_PASSWORD);
+                    String firstName = c.getString(TAG_FIRST_NAME);
+                    String lastName = c.getString(TAG_LAST_NAME);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_SJSUID, SJSUID);
+                    map.put(TAG_PASSWORD, Password);
+                    map.put(TAG_FIRST_NAME, firstName);
+                    map.put(TAG_LAST_NAME, lastName);
+
+                    // adding HashMap to ArrayList
+                    name.add(map);
+                }
+                return name;
             } else {
                 return null;
             }

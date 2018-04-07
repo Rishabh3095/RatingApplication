@@ -19,6 +19,7 @@ public class AllRatings extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> ratingTitles;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+import static com.example.rishabh.myapplication.Connect.TAG_FIRST_NAME;
 
+
+public class MainActivity extends AppCompatActivity {
     Button logIn;
     Button signUp;
     EditText idField;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         idField = (EditText) findViewById(R.id.text_id_input);
         passwordField = (EditText) findViewById(R.id.text_password_input);
 
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 Connect.login(idField.getText().toString(), passwordField.getText().toString());
+                User.get().setID(idField.getText().toString());
+                System.out.println(User.get().getID());
+                ArrayList<HashMap<String, String>> name;
+                name = Connect.getName(User.get().getID());
+                User.get().setName(name.get(0).get(TAG_FIRST_NAME));
                 startActivity(new Intent(MainActivity.this, Menu.class));
             }
         });
