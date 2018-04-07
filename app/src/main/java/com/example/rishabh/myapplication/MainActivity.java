@@ -35,16 +35,22 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: move Connect.getAllRatings() to non-UI thread
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                Connect.login(idField.getText().toString(), passwordField.getText().toString());
-                User.get().setID(idField.getText().toString());
+                if (Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 0){
+                    //user doesnt exist
+                }else if(Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 2){
+                    //wrong password
+                }else if(Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 1){
+                    Connect.login(idField.getText().toString(), passwordField.getText().toString());
+                    User.get().setID(idField.getText().toString());
 
-                ArrayList<HashMap<String, String>> name;
+                    ArrayList<HashMap<String, String>> name;
 
-                if (Connect.getUser(User.get().getID()) != null){
-                    name = Connect.getUser(User.get().getID());
-                    User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+                    if (Connect.getUser(User.get().getID()) != null){
+                        name = Connect.getUser(User.get().getID());
+                        User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+                    }
+                    startActivity(new Intent(MainActivity.this, Menu.class));
                 }
-                startActivity(new Intent(MainActivity.this, Menu.class));
             }
         });
 
