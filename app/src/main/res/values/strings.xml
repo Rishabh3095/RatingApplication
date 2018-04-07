@@ -108,4 +108,9 @@
     <string name="logout">LOGOUT!</string>
     <string name="title_activity_user_ratings">UserRatings</string>
     <string name="title_activity_user_polls">UserPolls</string>
+    <string name="create_rating">Create Rating</string>
+    <string name="menu">menu</string>
+    <string name="enter_the_title">Enter the title</string>
+    <string name="maximum_rating_value">Maximum rating value</string>
+    <string name="post">Post</string>
 </resources>
