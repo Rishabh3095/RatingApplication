@@ -2,11 +2,13 @@ package com.example.rishabh.myapplication;
 
 import android.content.Intent;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.support.design.widget.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         signUp = (Button) findViewById(R.id.button_sign_up);
         idField = (EditText) findViewById(R.id.text_id_input);
         passwordField = (EditText) findViewById(R.id.text_password_input);
-
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,14 +35,21 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: move Connect.getAllRatings() to non-UI thread
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                if (Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 0){
+                String id = idField.getText().toString();
+                String pass = passwordField.getText().toString();
+                int logReturn = Connect.login(id,pass);
+                if (logReturn == 0){
+                    System.out.println("you shouldnt see this");
+                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5);
                     //user doesnt exist
-                }else if(Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 2){
+                }else if(logReturn == 2){
+                    System.out.println("password");
                     //wrong password
-                }else if(Connect.login(idField.getText().toString(), passwordField.getText().toString()) == 1){
-                    Connect.login(idField.getText().toString(), passwordField.getText().toString());
-                    User.get().setID(idField.getText().toString());
-
+                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5);
+                }else if(logReturn == 1){
+                    User.get().setID(id);
+                    System.out.println(User.get().getID());
+                    System.out.println("good log");
                     ArrayList<HashMap<String, String>> name;
 
                     if (Connect.getUser(User.get().getID()) != null){
