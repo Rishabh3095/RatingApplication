@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.rishabh.myapplication.Connect.TAG_DATE;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllRatings extends AppCompatActivity {
@@ -37,7 +38,9 @@ public class AllRatings extends AppCompatActivity {
         ratingTitles.clear();
         for(HashMap<String, String> hashMap : Connect.getAllRatings())
         {
-            ratingTitles.add(hashMap.get(TAG_TITLE));
+            // retrieve rating and display
+            String formatted = String.format("%10.10s0.10s0.10s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), "PLACEHOLDER RATING");
+            ratingTitles.add(formatted);
         }
         return ratingTitles;
     }
