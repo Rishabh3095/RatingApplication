@@ -46,19 +46,15 @@ public class MainActivity extends AppCompatActivity {
                     mySnackbar.show();
                 }if (id.length() != 0 && pass.length() != 0) {
                     if (logReturn == 0) {
-                        System.out.println("you shouldnt see this");
                         Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
                         mySnackbar.show();
                         //user doesnt exist
                     } else if (logReturn == 2) {
-                        System.out.println("password");
                         //wrong password
                         Snackbar mySnackbar = Snackbar.make(view, "Incorrect Password", 5000);
                         mySnackbar.show();
                     } else if (logReturn == 1) {
                         User.get().setID(id);
-                        System.out.println(User.get().getID());
-                        System.out.println("good log");
                         ArrayList<HashMap<String, String>> name;
 
                         if (Connect.getUser(User.get().getID()) != null) {
