@@ -37,10 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
                 Connect.login(idField.getText().toString(), passwordField.getText().toString());
                 User.get().setID(idField.getText().toString());
-                System.out.println(User.get().getID());
+
                 ArrayList<HashMap<String, String>> name;
-                name = Connect.getUser(User.get().getID());
-                User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+
+                if (Connect.getUser(User.get().getID()) != null){
+                    name = Connect.getUser(User.get().getID());
+                    User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+                }
                 startActivity(new Intent(MainActivity.this, Menu.class));
             }
         });
