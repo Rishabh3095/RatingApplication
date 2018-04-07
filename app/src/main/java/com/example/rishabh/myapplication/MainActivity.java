@@ -36,30 +36,37 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: move Connect.getAllRatings() to non-UI thread
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                String id = idField.getText().toString();
-                String pass = passwordField.getText().toString();
-                int logReturn = Connect.login(id,pass);
-                if (logReturn == 0){
-                    System.out.println("you shouldnt see this");
-                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
+                String id = "";
+                String pass = "";
+                id = idField.getText().toString();
+                pass = passwordField.getText().toString();
+                int logReturn = Connect.login(id, pass);
+                if (id.length() == 0 || pass.length()== 0) {
+                    Snackbar mySnackbar = Snackbar.make(view, "Please fill in both ID and Password", 5000);
                     mySnackbar.show();
-                    //user doesnt exist
-                }else if(logReturn == 2){
-                    System.out.println("password");
-                    //wrong password
-                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
-                    mySnackbar.show();
-                }else if(logReturn == 1){
-                    User.get().setID(id);
-                    System.out.println(User.get().getID());
-                    System.out.println("good log");
-                    ArrayList<HashMap<String, String>> name;
+                }if (id.length() != 0 && pass.length() != 0) {
+                    if (logReturn == 0) {
+                        System.out.println("you shouldnt see this");
+                        Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
+                        mySnackbar.show();
+                        //user doesnt exist
+                    } else if (logReturn == 2) {
+                        System.out.println("password");
+                        //wrong password
+                        Snackbar mySnackbar = Snackbar.make(view, "Incorrect Password", 5000);
+                        mySnackbar.show();
+                    } else if (logReturn == 1) {
+                        User.get().setID(id);
+                        System.out.println(User.get().getID());
+                        System.out.println("good log");
+                        ArrayList<HashMap<String, String>> name;
 
-                    if (Connect.getUser(User.get().getID()) != null){
-                        name = Connect.getUser(User.get().getID());
-                        User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+                        if (Connect.getUser(User.get().getID()) != null) {
+                            name = Connect.getUser(User.get().getID());
+                            User.get().setName(name.get(0).get(TAG_FIRST_NAME));
+                        }
+                        startActivity(new Intent(MainActivity.this, Menu.class));
                     }
-                    startActivity(new Intent(MainActivity.this, Menu.class));
                 }
             }
         });
