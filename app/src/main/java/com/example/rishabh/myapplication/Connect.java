@@ -165,7 +165,7 @@ public class Connect {
 
     public static boolean createRating(String title, String maxRate, String sjsuid, String date) {
         JSONParser jsonParser = new JSONParser();
-        String url_create_rating = "sftp://ec2-54-190-23-110.us-west-2.compute.amazonaws.com/home/ec2-user/php-backend/create_rating.php";
+        String url_create_rating = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_rating.php";
         //
         //
 
