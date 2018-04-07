@@ -11,9 +11,9 @@
     <string name="create_rating">Create Rating</string>
     <string name="view_edit_polls">View / Edit Polls</string>
     <string name="view_all_polls">View All Polls</string>
-    <string name="view_edit_raitngs">View / Edit Raitngs</string>
+    <string name="view_edit_ratings">View / Edit Ratings</string>
     <string name="view_all_ratings">View All Ratings</string>
-    <string name="hello">HELLO</string>
+    <string name="hello">HELLO NAME</string>
     <string name="logout">LOGOUT!</string>
     <string name="title_activity_user_ratings">UserRatings</string>
     <string name="title_activity_user_polls">UserPolls</string>

@@ -74,7 +74,7 @@
         android:layout_alignLeft="@+id/button_create_rating"
         android:layout_alignStart="@+id/button_create_rating"
         android:layout_marginLeft="16dp"
-        android:text="@string/view_edit_raitngs"
+        android:text="@string/view_edit_ratings"
         app:layout_constraintBaseline_toBaselineOf="@+id/button_view_edit_polls"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_constraintBaseline_creator="1"
@@ -98,19 +98,15 @@
         tools:layout_constraintTop_creator="1" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_view_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="2dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="2dp"
         android:layout_marginTop="89dp"
         android:text="@string/hello"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/button_create_rating"
-        app:layout_constraintEnd_toStartOf="@+id/name_of_user"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -134,18 +130,5 @@
         app:layout_constraintVertical_bias="0.077"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
-
-    <EditText
-        android:id="@+id/name_of_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:ems="10"
-        android:hint="Name of the user"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
 
 </android.support.constraint.ConstraintLayout>

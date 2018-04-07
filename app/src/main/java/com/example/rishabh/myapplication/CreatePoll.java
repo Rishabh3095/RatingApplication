@@ -56,8 +56,9 @@ public class CreatePoll extends AppCompatActivity {
         poll_option2 = (EditText) findViewById(R.id.poll_option2);
         poll_option3 = (EditText) findViewById(R.id.poll_option3);
         poll_option4 = (EditText) findViewById(R.id.poll_option4);
-
         create_poll_post = (Button) findViewById(R.id.create_poll_post);
+
+
 
         create_poll_post.setOnClickListener(new View.OnClickListener() {
             @Override
