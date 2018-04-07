@@ -1,6 +1,8 @@
 package com.example.rishabh.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -42,10 +44,16 @@ public class SignUp extends AppCompatActivity {
         sjsuId = (EditText) findViewById(R.id.sjsuId_signUp);
         password = (EditText) findViewById(R.id.password_signUp);
 
+
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Terrible workaround to avoid NetworkOnMainThreadException
+                // TODO: move Connect.getAllRatings() to non-UI thread
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                Connect.newUser(firstName.getText().toString(),lastName.getText().toString(),sjsuId.getText().toString(),password.getText().toString());
+                startActivity(new Intent(SignUp.this, MainActivity.class));
             }
         });
     }

@@ -30,14 +30,14 @@ public class Connect {
     public static boolean newUser(String sjsuid, String first_name, String last_name, String password) {
 
         JSONParser jsonParser = new JSONParser();
-        String url_create_user = "sftp://ec2-54-190-23-110.us-west-2.compute.amazonaws.com/home/ec2-user/php-backend/create_user.php";
+        String url_create_user = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_user.php";
 
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("sjsuid", sjsuid));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("first_name", first_name));
         params.add(new BasicNameValuePair("last_name", last_name));
-        params.add(new BasicNameValuePair("password", password));
 
         // getting JSON Object
         // Note that create product url accepts POST method
@@ -67,7 +67,7 @@ public class Connect {
     public static int login(String sjsuid, String password) {
         int success;
         JSONParser jsonParser = new JSONParser();
-        String url_login = "sftp://ec2-54-190-23-110.us-west-2.compute.amazonaws.com/home/ec2-user/php-backend/login.php";
+        String url_login = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/login.php";
         try {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
