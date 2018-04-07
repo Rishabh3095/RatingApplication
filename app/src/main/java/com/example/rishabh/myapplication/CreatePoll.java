@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -61,7 +62,21 @@ public class CreatePoll extends AppCompatActivity {
         create_poll_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String title = create_poll_heading.getText().toString();
+
+                // TODO: get user sjsuid after login is implemented
+                String sjsuid;
+                // date will be formatted in yyyy-mm-dd format
+                String date = new java.sql.Date(new java.util.Date().getTime()).toString();
+
+                // Terrible workaround to avoid NetworkOnMainThreadException
+                // TODO: move Connect.getAllPolls() to non-UI thread
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                Connect.createPoll(title, "PLACEHOLDER SJSUID", date);
+
                 startActivity(new Intent(CreatePoll.this, UserPolls.class));
+
             }
         });
 
