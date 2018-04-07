@@ -277,7 +277,7 @@ public class Connect {
                     JSONObject c = polls.getJSONObject(i);
 
                     // Storing each json item in variable
-                    String ratingID = c.getString(TAG_POLL_ID);
+                    String pollID = c.getString(TAG_POLL_ID);
                     String title = c.getString(TAG_TITLE);
                     String date = c.getString(TAG_DATE);
                     String sjsuid = c.getString(TAG_SJSUID);
@@ -286,11 +286,12 @@ public class Connect {
                     HashMap<String, String> map = new HashMap<String, String>();
 
                     // adding each child node to HashMap key => value
-                    map.put(TAG_RATING_ID, ratingID);
+                    map.put(TAG_POLL_ID, pollID);
                     map.put(TAG_TITLE, title);
                     map.put(TAG_DATE, date);
                     map.put(TAG_SJSUID, sjsuid);
 
+                    // adding HashMap to ArrayList
                     pollsList.add(map);
                 }
                 return pollsList;
