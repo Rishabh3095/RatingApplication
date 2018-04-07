@@ -22,6 +22,8 @@ public class Connect {
     public static final String TAG_OPTION = "option";
     public static final String TAG_RATING_ID = "ratingID";
     public static final String TAG_RATINGS = "ratings";
+    public static final String TAG_POLL_ID = "pollID";
+    public static final String TAG_POLLS = "polls";
     public static final String TAG_MAX_RATE = "maxRate";
     public static final String TAG_DATE = "date";
     public static final String TAG_TITLE = "title";
@@ -225,6 +227,7 @@ public class Connect {
         // check for success tag
         try {
             int success = json.getInt(TAG_SUCCESS);
+
             if (success == 1) {
                 // successfully created product
                 return true;
@@ -238,5 +241,65 @@ public class Connect {
         }
         return false;
     }
-    
+    public static ArrayList<HashMap<String, String>> getAllPolls() {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> pollsList;
+
+        // url to get all posted ratings
+        String url_get_polls = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_all_polls.php";
+
+        pollsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray polls = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_polls, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("Poll: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                polls = json.getJSONArray(TAG_POLLS);
+
+                // looping through All activities
+                for (int i = 0; i < polls.length(); i++) {
+                    JSONObject c = polls.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String ratingID = c.getString(TAG_POLL_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String date = c.getString(TAG_DATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_RATING_ID, ratingID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_DATE, date);
+                    map.put(TAG_SJSUID, sjsuid);
+
+                    pollsList.add(map);
+                }
+                return pollsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
