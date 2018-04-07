@@ -1,5 +1,6 @@
 package com.example.rishabh.myapplication;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -7,57 +8,38 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.json.JSONArray;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllRatings extends AppCompatActivity {
 
-    private ProgressDialog pDialog;
-
-    ArrayList<HashMap<String, String>> ratingsList;
-    private static final String TAG_NAME = "name";
-
-    JSONArray activities = null;
+    private ListView mListView;
+    private ArrayAdapter<String> mAdapter;
+    private ArrayList<String> ratingTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_ratings);
-        new LoadAllActivities().execute();
+        ratingTitles = new ArrayList<>();
 
+        mListView = (ListView) findViewById(R.id.listview_all_ratings);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updateRatingTitles());
+        mListView.setAdapter(mAdapter);
     }
 
-    class LoadAllActivities extends AsyncTask<String, String, String> {
-        protected String doInBackground(String... args) {
-            Intent i = getIntent();
+    private ArrayList<String> updateRatingTitles() {
+        // Terrible workaround to avoid NetworkOnMainThreadException
+        // TODO: move Connect.getAllRatings() to non-UI thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-            // getting activity id (id) from intent
-            String name = i.getStringExtra(TAG_NAME);
-
-            ratingsList=Connect.getAllRatings();
-            if(ratingsList==null){
-                Intent in = new Intent(getApplicationContext(),
-                        Menu.class);
-                //Closing all previous activities
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(in);
-            }
-            else
-            {
-                
-            }
-            return null;
+        ratingTitles.clear();
+        for(HashMap<String, String> hashMap : Connect.getAllRatings())
+        {
+            ratingTitles.add(hashMap.get(TAG_TITLE));
         }
-    }}
+        return ratingTitles;
+    }
+
+}
