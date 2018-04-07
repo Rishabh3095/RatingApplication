@@ -63,7 +63,7 @@ public class CreatePoll extends AppCompatActivity {
         create_poll_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = create_poll_heading.getText().toString();
+                String title = poll_title.getText().toString();
 
                 // TODO: get user sjsuid after login is implemented
                 String sjsuid;
