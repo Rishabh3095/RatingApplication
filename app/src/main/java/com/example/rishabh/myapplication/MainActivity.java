@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 User.get().setID(idField.getText().toString());
                 System.out.println(User.get().getID());
                 ArrayList<HashMap<String, String>> name;
-                name = Connect.getName(User.get().getID());
+                name = Connect.getUser(User.get().getID());
                 User.get().setName(name.get(0).get(TAG_FIRST_NAME));
                 startActivity(new Intent(MainActivity.this, Menu.class));
             }

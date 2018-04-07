@@ -308,7 +308,7 @@ public class Connect {
         }
         return null;
     }
-    public static ArrayList<HashMap<String, String>> getName(String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getUser(String sjsuID) {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
