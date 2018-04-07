@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.Connect.TAG_DATE;
-import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllPolls extends AppCompatActivity {
