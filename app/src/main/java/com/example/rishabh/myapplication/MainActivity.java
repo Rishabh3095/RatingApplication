@@ -3,6 +3,7 @@ package com.example.rishabh.myapplication;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 int logReturn = Connect.login(id,pass);
                 if (logReturn == 0){
                     System.out.println("you shouldnt see this");
-                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5);
+                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
+                    mySnackbar.show();
                     //user doesnt exist
                 }else if(logReturn == 2){
                     System.out.println("password");
                     //wrong password
-                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5);
+                    Snackbar mySnackbar = Snackbar.make(view, "User doesnt exist", 5000);
+                    mySnackbar.show();
                 }else if(logReturn == 1){
                     User.get().setID(id);
                     System.out.println(User.get().getID());
