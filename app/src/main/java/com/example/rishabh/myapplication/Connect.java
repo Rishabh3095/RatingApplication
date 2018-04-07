@@ -202,4 +202,41 @@ public class Connect {
         return false;
     }
 
+    public static boolean createPoll(String title, String sjsuid, String date) {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_poll.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+        params.add(new BasicNameValuePair("sjsuid", sjsuid));
+        params.add(new BasicNameValuePair("date", date));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }
