@@ -74,7 +74,7 @@ public class CreatePoll extends AppCompatActivity {
                 // TODO: move Connect.getAllPolls() to non-UI thread
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                Connect.createPoll(title, "PLACEHOLDER SJSUID", date);
+                Connect.createPoll(title, User.get().getID(), date);
 
                 startActivity(new Intent(CreatePoll.this, UserPolls.class));
 

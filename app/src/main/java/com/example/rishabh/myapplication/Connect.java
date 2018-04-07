@@ -22,6 +22,7 @@ public class Connect {
     public static final String TAG_OPTION = "option";
     public static final String TAG_RATING_ID = "ratingID";
     public static final String TAG_RATINGS = "ratings";
+    public static final String TAG_RATING_RATE = "score";
     public static final String TAG_FIRST_NAME = "firstName";
     public static final String TAG_LAST_NAME = "lastName";
     public static final String TAG_POLL_ID = "pollID";
@@ -224,6 +225,43 @@ public class Connect {
         // getting JSON Object
         // Note that create product url accepts POST method
         JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean createRatingRate(String sjsuid, String ratingid, String score) {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_rating = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_rating_rate.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("SJSUID", sjsuid));
+        params.add(new BasicNameValuePair("ratingID", ratingid));
+        params.add(new BasicNameValuePair("score", score));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_rating,
                 "POST", params);
 
         // check log cat for response
