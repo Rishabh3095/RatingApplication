@@ -246,7 +246,7 @@ public class Connect {
         }
         return false;
     }
-    public static boolean createOptions(String title, String sjsuid) {
+    public static boolean createOptions(String title, String sjsuid, String pollid) {
         JSONParser jsonParser = new JSONParser();
         String url_create_options = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_options.php";
         //
@@ -254,6 +254,7 @@ public class Connect {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("sjsuid", sjsuid));
+        params.add(new BasicNameValuePair("pollid", pollid));
 
         // getting JSON Object
         // Note that create product url accepts POST method
