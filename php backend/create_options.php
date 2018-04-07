@@ -6,17 +6,18 @@
 // array for JSON response
 $response = array();
 // check for required fields
-if (isset($_POST['title'])&& isset($_POST['sjsuid'])) {
+if (isset($_POST['title'])&& isset($_POST['sjsuid'])&& isset($_POST['pollid'])) {
     
     $sjsuid = $_POST['sjsuid'];
     $title = $_POST['title'];
+    $pollid = $_POST['pollid'];
     
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
     // connecting to db
     $db = new DB_CONNECT();
     // mysql inserting a new row
-    $result = mysql_query("INSERT INTO Option(title,  user) VALUES('$title', '$sjsuid')");
+    $result = mysql_query("INSERT INTO Option(title,  user, pollID) VALUES('$title', '$sjsuid', '$pollid')");
     // check if row inserted or not
     if (mysqli_multi_query($db, $result)) {
         // successfully inserted into database
