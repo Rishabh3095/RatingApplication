@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.Connect.TAG_DATE;
+import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class UserRatings extends AppCompatActivity {
@@ -79,7 +80,7 @@ public class UserRatings extends AppCompatActivity {
         for(HashMap<String, String> hashMap : Connect.getUserRatings(User.get().getID()))
         {
             // TODO: retrieve rating and display instead of placeholder text
-            String formatted = String.format("%s | %10.10s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE));
+            String formatted = String.format("%s | %10.10s | %s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), "RATING/" + hashMap.get(TAG_MAX_RATE));
             ratingTitles.add(formatted);
         }
         return ratingTitles;
