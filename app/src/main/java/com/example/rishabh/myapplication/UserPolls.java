@@ -84,4 +84,4 @@ public class UserPolls extends AppCompatActivity {
         }
         return pollTitles;
 
-}
+}}
