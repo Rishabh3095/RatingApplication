@@ -29,6 +29,8 @@ public class RatingActivity extends AppCompatActivity
     Button updateRating;
     HashMap<String, String> ratingData;
     HashMap<String, String> ratingRate;
+    SeekBar ratingSeekBar;
+    String ratingID;
 
     int maxRatingValue;
 
@@ -45,7 +47,7 @@ public class RatingActivity extends AppCompatActivity
 
 
         Bundle extras = getIntent().getExtras();
-        String ratingID = null;
+        ratingID = null;
         if (extras != null) {
             ratingID = extras.getString(TAG_RATING_TITLE);
         } else
@@ -73,7 +75,7 @@ public class RatingActivity extends AppCompatActivity
         } else Log.wtf(TAG, "Connect.getRatingRate() or Connect.getAllRatings() is returning null");
 
 
-        SeekBar ratingSeekBar = (SeekBar) findViewById(R.id.seek_bar_rating);
+        ratingSeekBar = (SeekBar) findViewById(R.id.seek_bar_rating);
         ratingSeekBar.setMax(maxRatingValue);
         ratingSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
@@ -100,5 +102,11 @@ public class RatingActivity extends AppCompatActivity
     // TODO: implement rating vote update
     public void updateRating(View view)
     {
+        // Terrible workaround to avoid NetworkOnMainThreadException
+        // TODO: move Connect.getRatingRate() to non-UI thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Connect.createRatingRate(User.get().getID(),ratingID,Integer.toString(ratingSeekBar.getProgress()));
+
     }
 }
