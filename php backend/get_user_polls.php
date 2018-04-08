@@ -20,7 +20,7 @@ if (isset($_POST["sjsuid"])) {
     $name = $_POST['sjsuid'];
 	
     // get a user from products table
-    $result = mysql_query("SELECT *FROM Poll WHERE SJSUID = '$name'");
+    $result = mysql_query("SELECT *FROM Poll WHERE user = '$name'");
 	
    // check for empty result
     if (mysql_num_rows($result) > 0) {
