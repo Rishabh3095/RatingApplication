@@ -1,5 +1,6 @@
 package com.example.rishabh.myapplication;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +10,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.AllRatings.TAG_RATING_TITLE;
+import static com.example.rishabh.myapplication.Connect.TAG_RATING_RATE;
 
 public class RatingActivity extends AppCompatActivity
 {
@@ -20,6 +23,7 @@ public class RatingActivity extends AppCompatActivity
     TextView ratingAverageValue;
     TextView ratingSliderValue;
     Button updateRating;
+    ArrayList<HashMap<String, String>> ratingData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +36,7 @@ public class RatingActivity extends AppCompatActivity
         ratingSliderValue = (TextView) findViewById(R.id.text_view_current_rating);
         updateRating = (Button) findViewById(R.id.button_update_rating);
 
+
         Bundle extras = getIntent().getExtras();
         String ratingTitle = null;
         if (extras != null) {
@@ -40,6 +45,19 @@ public class RatingActivity extends AppCompatActivity
             Log.wtf(TAG, "No rating name sent over");
 
         ratingTitleField.setText(ratingTitle);
+
+        // Terrible workaround to avoid NetworkOnMainThreadException
+        // TODO: move Connect.getRatingRate() to non-UI thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        ratingData = Connect.getRatingRate(ratingTitle);
+        String averageRating = null;
+        if (ratingData != null) {
+            averageRating = ratingData.get(0).get(TAG_RATING_RATE);
+        }
+        else Log.wtf(TAG, "Connect.getRatingRate(ratingTitle) is returning null");
+
+        ratingAverageValue.setText("Overall rating: " + averageRating + " /placeholder");
 
         // TODO: implement rating data retrieval and display
         SeekBar ratingSeekBar = (SeekBar) findViewById(R.id.seek_bar_rating);

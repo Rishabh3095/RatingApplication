@@ -40,7 +40,8 @@ public class AllRatings extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
             {
                 Intent intent = new Intent(AllRatings.this, RatingActivity.class);
-                intent.putExtra(TAG_RATING_TITLE, (String) adapterView.getSelectedItem());
+                String title = ((String) adapterView.getItemAtPosition(position)).substring(0, ((String) adapterView.getItemAtPosition(position)).indexOf(" |"));
+                intent.putExtra(TAG_RATING_TITLE, title);
                 startActivity(intent);
             }
         });
