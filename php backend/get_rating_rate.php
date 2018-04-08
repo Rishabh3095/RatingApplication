@@ -16,11 +16,11 @@ require_once __DIR__ . '/db_connect.php';
 $db = new DB_CONNECT();
 
 // check for post data
-if (isset($_GET[sjsuID])) {
-    $id = $_GET[sjsuID];
+if (isset($_GET[ratingID])) {
+    $id = $_GET[ratingID];
 
     // get a activity from products table
-    $result = mysql_query("SELECT *FROM Poll WHERE user = $id");
+    $result = mysql_query("select AVG(score) as avg from RatingRate where ratingId = $id");
 
     if (!empty($result)) {
         // check for empty result
@@ -30,17 +30,14 @@ if (isset($_GET[sjsuID])) {
             $result = mysql_fetch_array($result);
 
             $User = array();
-            $User["pollID"] = $result["pollID"];
-            $User["title"] = $result["title"];
-            $User["sjsuid"] = $result["user"];
-            $User["date"] = $result["date"];
+            $User["score"] = $result["avg"];
             // success
             $response["success"] = 1;
 
             // user node
-            $response["polls"] = array();
+            $response["score"] = array();
 
-            array_push($response["polls"], $User);
+            array_push($response["score"], $User);
 
             // echoing JSON response
             echo json_encode($response);

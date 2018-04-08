@@ -30,7 +30,7 @@ if (isset($_GET[sjsuID])) {
             $result = mysql_fetch_array($result);
 
             $User = array();
-            $User["pollID"] = $result["pollID"];
+            $User["pollId"] = $result["pollID"];
             $User["title"] = $result["title"];
             $User["sjsuid"] = $result["user"];
             $User["date"] = $result["date"];

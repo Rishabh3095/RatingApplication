@@ -9,9 +9,9 @@
 $response = array();
 
 // check for required fields
-if (isset($_POST['sjsuid']) && isset($_POST['password'])&& isset($_POST['first_name'])&& isset($_POST['last_name'])) {
+if (isset($_POST[sjsuid]) && isset($_POST['password'])&& isset($_POST['first_name'])&& isset($_POST['last_name'])) {
     
-    $sjsuid = $_POST['sjsuid'];
+    $sjsuid = $_POST[sjsuid];
     $password = $_POST['password'];
     $first_name = $_POST['first_name'];
     $last_name =$_POST['last_name'];
@@ -23,7 +23,7 @@ if (isset($_POST['sjsuid']) && isset($_POST['password'])&& isset($_POST['first_n
     $db = new DB_CONNECT();
 
     // mysql inserting a new row
-    $result = mysql_query("INSERT INTO user( SJSUID, Password, firstName, lastName) VALUES('$sjsuid', '$password', '$first_name' , '$last_name')");
+    $result = mysql_query("INSERT INTO User( SJSUID, Password, firstName, lastName) VALUES('$sjsuid', '$password', '$first_name' , '$last_name')");
 
     // check if row inserted or not
     if ($result) {

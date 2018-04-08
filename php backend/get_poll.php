@@ -16,11 +16,11 @@ require_once __DIR__ . '/db_connect.php';
 $db = new DB_CONNECT();
 
 // check for post data
-if (isset($_GET[sjsuID])) {
-    $id = $_GET[sjsuID];
+if (isset($_GET['pollID'])) {
+    $id = $_GET['pollID'];
 
     // get a activity from products table
-    $result = mysql_query("SELECT *FROM Poll WHERE user = $id");
+    $result = mysql_query("SELECT *FROM Poll WHERE pollID = '$pollID'");
 
     if (!empty($result)) {
         // check for empty result
@@ -29,25 +29,25 @@ if (isset($_GET[sjsuID])) {
 
             $result = mysql_fetch_array($result);
 
-            $User = array();
-            $User["pollID"] = $result["pollID"];
-            $User["title"] = $result["title"];
-            $User["sjsuid"] = $result["user"];
-            $User["date"] = $result["date"];
+            $poll = array();
+            $poll["pollID"] = $result["pollID"];
+            $poll["title"] = $result["title"];
+            $poll["user"] = $result["user"];
+            $poll["date"] = $result["date"];
             // success
             $response["success"] = 1;
 
             // user node
-            $response["polls"] = array();
+            $response["poll"] = array();
 
-            array_push($response["polls"], $User);
+            array_push($response["poll"], $poll);
 
             // echoing JSON response
             echo json_encode($response);
         } else {
             // no product found
             $response["success"] = 0;
-            $response["message"] = "No user found";
+            $response["message"] = "No poll found";
 
             // echo no users JSON
             echo json_encode($response);
@@ -55,7 +55,7 @@ if (isset($_GET[sjsuID])) {
     } else {
         // no product found
         $response["success"] = 0;
-        $response["message"] = "No user found";
+        $response["message"] = "No poll found";
 
         // echo no users JSON
         echo json_encode($response);
