@@ -41,9 +41,9 @@ public class UserPolls extends AppCompatActivity {
 
         pollTitles = new ArrayList<>();
 
-        mListView = (ListView) findViewById(R.id.listview_all_polls);
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updatePollTitles());
-        mListView.setAdapter(mAdapter);
+        //mListView = (ListView) findViewById(R.id.listview_all_polls);
+        //mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updatePollTitles());
+       // mListView.setAdapter(mAdapter);
 
         userPollToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +76,12 @@ public class UserPolls extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         pollTitles.clear();
-        for(HashMap<String, String> hashMap : Connect.getUserPolls(User.get().getID()))
+        /*for(HashMap<String, String> hashMap : Connect.getUserPolls(User.get().getID()))
         {
             // TODO: retrieve rating and display instead of placeholder text
             String formatted = String.format("%s | %10.10s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE));
             pollTitles.add(formatted);
-        }
+        }*/
         return pollTitles;
 
 }}

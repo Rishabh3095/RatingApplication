@@ -86,7 +86,7 @@ public class SignUp extends AppCompatActivity {
                     // TODO: move Connect.getAllRatings() to non-UI thread
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
-                    Connect.newUser(sjsuId.getText().toString(),lastName.getText().toString(),firstName.getText().toString(),password.getText().toString());
+                    Connect.newUser(sjsuId.getText().toString(),firstName.getText().toString(),lastName.getText().toString(),password.getText().toString());
                     startActivity(new Intent(SignUp.this, MainActivity.class));
                 }
             }

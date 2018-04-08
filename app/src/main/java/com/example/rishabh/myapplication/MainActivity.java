@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                         if (Connect.getUser(User.get().getID()) != null) {
                             name = Connect.getUser(User.get().getID());
                             User.get().setName(name.get(0).get(TAG_FIRST_NAME));
-                            Connect.getRatingRate("1");
                         }
                         startActivity(new Intent(MainActivity.this, Menu.class));
                     }
