@@ -448,7 +448,7 @@ public class Connect {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getUserPolls(String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getUserPolls(String sjsuid) {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -463,7 +463,7 @@ public class Connect {
         JSONArray polls = null;
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+        params.add(new BasicNameValuePair("sjsuID", sjsuid));
 
         // getting JSON string from URL
         JSONObject json = jParser.makeHttpRequest(url_get_polls, "GET", params);
