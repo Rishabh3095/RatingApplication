@@ -1,0 +1,9 @@
+-> Install Android Studio.
+
+-> UnZip the Andoid Project.
+
+-> Open the file (Rating Application) from the File on the top left of the Android Studio.
+
+-> Update any gradle dependencies if required.
+
+-> Run the project using Android Emulator or an Android Device (much faster).
