@@ -38,9 +38,9 @@ public class UserRatings extends AppCompatActivity {
 
         ratingTitles = new ArrayList<>();
 
-        mListView = (ListView) findViewById(R.id.listview_all_polls);
+        /*mListView = (ListView) findViewById(R.id.listview_all_polls);
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updateRatingTitles());
-        mListView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);*/
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
