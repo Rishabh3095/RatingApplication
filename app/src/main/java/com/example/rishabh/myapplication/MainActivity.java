@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             name = Connect.getUser(User.get().getID());
                             User.get().setName(name.get(0).get(TAG_FIRST_NAME));
                         }
+                        //Connect.createRatingRate(User.get().getID(), "1", "60");
                         startActivity(new Intent(MainActivity.this, Menu.class));
                     }
                 }
