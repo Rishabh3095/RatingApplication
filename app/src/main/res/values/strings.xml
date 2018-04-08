@@ -21,4 +21,7 @@
     <string name="enter_the_title">Enter the title</string>
     <string name="maximum_rating_value">Maximum rating value</string>
     <string name="post">Post</string>
+    <string name="save">Save</string>
+    <string name="overall_rating">Overall rating: 0</string>
+    <string name="your_rating">Your rating: 0</string>
 </resources>

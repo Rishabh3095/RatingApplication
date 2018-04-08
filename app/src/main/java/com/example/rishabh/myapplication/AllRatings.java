@@ -1,8 +1,12 @@
 package com.example.rishabh.myapplication;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,6 +19,7 @@ import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllRatings extends AppCompatActivity {
 
+    public static final String TAG_RATING_TITLE = "rating_id";
     private ListView mListView;
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> ratingTitles;
@@ -29,6 +34,16 @@ public class AllRatings extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listview_all_ratings);
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updateRatingTitles());
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+            {
+                Intent intent = new Intent(AllRatings.this, RatingActivity.class);
+                intent.putExtra(TAG_RATING_TITLE, (String) adapterView.getSelectedItem());
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<String> updateRatingTitles() {
@@ -46,5 +61,4 @@ public class AllRatings extends AppCompatActivity {
         }
         return ratingTitles;
     }
-
 }

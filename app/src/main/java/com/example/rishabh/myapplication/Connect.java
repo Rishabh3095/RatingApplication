@@ -247,7 +247,7 @@ public class Connect {
         }
         return false;
     }
-    public static boolean createRatingRate(String sjsuid, String ratingid, String score) {
+    public static boolean createRatingRate(String sjsuid,String ratingid, String score) {
         JSONParser jsonParser = new JSONParser();
         String url_create_rating = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_rating_rate.php";
         //
@@ -284,39 +284,69 @@ public class Connect {
         }
         return false;
     }
-    public static boolean createOptions(String title, String sjsuid) {
-        JSONParser jsonParser = new JSONParser();
-        String url_create_options = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_options.php";
-        //
+    public static ArrayList<HashMap<String, String>> getRatingRate(String ratingid) {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> ratingsList;
+
+        // url to get all posted ratings
+        String url_get_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_rating_rate.php";
+
+        ratingsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray ratings = null;
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("title", title));
-        params.add(new BasicNameValuePair("sjsuid", sjsuid));
+        params.add(new BasicNameValuePair("ratingID", ratingid));
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_ratings, "GET", params);
 
-        // getting JSON Object
-        // Note that create product url accepts POST method
-        JSONObject json = jsonParser.makeHttpRequest(url_create_options,
-                "POST", params);
+        // Check your log cat for JSON response
+        Log.d("RatingRate: ", json.toString());
 
-        // check log cat for response
-        Log.d("Create Response", json.toString());
-
-        // check for success tag
         try {
+            // Checking for SUCCESS TAG
             int success = json.getInt(TAG_SUCCESS);
 
             if (success == 1) {
-                // successfully created product
-                return true;
+                // activities found
+                // Getting Array of Products
+                ratings = json.getJSONArray(TAG_RATING_RATE);
 
+                // looping through All activities
+                for (int i = 0; i < ratings.length(); i++) {
+                    JSONObject c = ratings.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String ratingID = c.getString(TAG_RATING_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String date = c.getString(TAG_DATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String maxRate = c.getString(TAG_MAX_RATE);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_RATING_ID, ratingID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_DATE, date);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_MAX_RATE, maxRate);
+
+                    // adding HashMap to ArrayList
+                    ratingsList.add(map);
+                }
+                return ratingsList;
             } else {
-                // failed to create product
-                return false;
+                return null;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public static ArrayList<HashMap<String, String>> getAllPolls() {
@@ -447,4 +477,137 @@ public class Connect {
         }
         return null;
     }
+
+    public static ArrayList<HashMap<String, String>> getUserPolls(String sjsuID) {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> pollsList;
+
+        // url to get all posted ratings
+        String url_get_polls = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_user_polls.php";
+
+        pollsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray polls = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_polls, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("Poll: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                polls = json.getJSONArray(TAG_POLLS);
+
+                // looping through All activities
+                for (int i = 0; i < polls.length(); i++) {
+                    JSONObject c = polls.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String pollID = c.getString(TAG_POLL_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String date = c.getString(TAG_DATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_POLL_ID, pollID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_DATE, date);
+
+                    // adding HashMap to ArrayList
+                    pollsList.add(map);
+                }
+                return pollsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<HashMap<String, String>> getUserRatings(String sjsuID) {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> ratingsList;
+
+        // url to get all posted ratings
+        String url_user_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_user_ratings.php";
+
+        ratingsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray ratings = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_user_ratings, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("RatingRate: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                ratings = json.getJSONArray(TAG_RATING_RATE);
+
+                // looping through All activities
+                for (int i = 0; i < ratings.length(); i++) {
+                    JSONObject c = ratings.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String ratingID = c.getString(TAG_RATING_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String date = c.getString(TAG_DATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String maxRate = c.getString(TAG_MAX_RATE);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_RATING_ID, ratingID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_MAX_RATE, maxRate);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_DATE, date);
+
+
+                    // adding HashMap to ArrayList
+                    ratingsList.add(map);
+                }
+                return ratingsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }
