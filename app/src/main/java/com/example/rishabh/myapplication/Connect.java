@@ -22,6 +22,7 @@ public class Connect {
     public static final String TAG_OPTION = "option";
     public static final String TAG_RATING_ID = "ratingID";
     public static final String TAG_RATINGS = "ratings";
+    public static final String TAG_RATING_RATES = "score";
     public static final String TAG_RATING_RATE = "score";
     public static final String TAG_FIRST_NAME = "firstName";
     public static final String TAG_LAST_NAME = "lastName";
@@ -313,29 +314,19 @@ public class Connect {
             if (success == 1) {
                 // activities found
                 // Getting Array of Products
-                ratings = json.getJSONArray(TAG_RATING_RATE);
+                ratings = json.getJSONArray(TAG_RATING_RATES);
 
                 // looping through All activities
                 for (int i = 0; i < ratings.length(); i++) {
                     JSONObject c = ratings.getJSONObject(i);
 
                     // Storing each json item in variable
-                    String ratingID = c.getString(TAG_RATING_ID);
-                    String title = c.getString(TAG_TITLE);
-                    String date = c.getString(TAG_DATE);
-                    String sjsuid = c.getString(TAG_SJSUID);
-                    String maxRate = c.getString(TAG_MAX_RATE);
-
+                    String score = c.getString(TAG_RATING_RATE);
                     // creating new HashMap
                     HashMap<String, String> map = new HashMap<String, String>();
 
                     // adding each child node to HashMap key => value
-                    map.put(TAG_RATING_ID, ratingID);
-                    map.put(TAG_TITLE, title);
-                    map.put(TAG_DATE, date);
-                    map.put(TAG_SJSUID, sjsuid);
-                    map.put(TAG_MAX_RATE, maxRate);
-
+                    map.put(TAG_RATING_RATE, score);
                     // adding HashMap to ArrayList
                     ratingsList.add(map);
                 }
@@ -608,6 +599,72 @@ public class Connect {
         return null;
     }
 
+    public static ArrayList<HashMap<String, String>> getSpecificRating(String title1, String sjsuID) {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> ratingsList;
+
+        // url to get all posted ratings
+        String url_specific_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_specific_ratings.php";
+
+        ratingsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray ratings = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title1", title1));
+        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_specific_ratings, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("Rating: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                ratings = json.getJSONArray(TAG_RATING_RATE);
+
+                // looping through All activities
+                for (int i = 0; i < ratings.length(); i++) {
+                    JSONObject c = ratings.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String ratingID = c.getString(TAG_RATING_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String date = c.getString(TAG_DATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String maxRate = c.getString(TAG_MAX_RATE);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_RATING_ID, ratingID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_MAX_RATE, maxRate);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_DATE, date);
+
+
+                    // adding HashMap to ArrayList
+                    ratingsList.add(map);
+                }
+                return ratingsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }
