@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ public class SignUp extends AppCompatActivity {
     EditText lastName;
     EditText sjsuId;
     EditText password;
+    String evalve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +47,48 @@ public class SignUp extends AppCompatActivity {
         sjsuId = (EditText) findViewById(R.id.sjsuId_signUp);
         password = (EditText) findViewById(R.id.password_signUp);
 
+        sjsuId.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                evalve = "1";
+                return false;
+            }
+        });
 
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Terrible workaround to avoid NetworkOnMainThreadException
-                // TODO: move Connect.getAllRatings() to non-UI thread
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                Connect.newUser(sjsuId.getText().toString(),lastName.getText().toString(),firstName.getText().toString(),password.getText().toString());
-                startActivity(new Intent(SignUp.this, MainActivity.class));
+
+                if(sjsuId.length() < 9)
+                {
+                    Snackbar mySnackbar = Snackbar.make(view, "Please fill in correct SJSU ID!", 5000);
+                    mySnackbar.show();
+                }
+                else if(firstName.length() == 0)
+                {
+                    Snackbar mySnackbar = Snackbar.make(view, "Please fill in the information!", 5000);
+                    mySnackbar.show();
+                }
+                else if(lastName.length() == 0)
+                {
+                    Snackbar mySnackbar = Snackbar.make(view, "Please fill in the information!", 5000);
+                    mySnackbar.show();
+                }
+                else if(password.length() < 6)
+                {
+                    Snackbar mySnackbar = Snackbar.make(view, "Your password is too short!", 5000);
+                    mySnackbar.show();
+                }
+                else
+                {
+                    // Terrible workaround to avoid NetworkOnMainThreadException
+                    // TODO: move Connect.getAllRatings() to non-UI thread
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    Connect.newUser(sjsuId.getText().toString(),lastName.getText().toString(),firstName.getText().toString(),password.getText().toString());
+                    startActivity(new Intent(SignUp.this, MainActivity.class));
+                }
             }
         });
     }
