@@ -20,7 +20,7 @@ if (isset($_GET[sjsuID])) {
     $id = $_GET[sjsuID];
 
     // get a activity from products table
-    $result = mysql_query("SELECT *FROM Poll WHERE user = $id");
+    $result = mysql_query("SELECT *FROM User WHERE SJSUID = $id");
 
     if (!empty($result)) {
         // check for empty result
@@ -30,17 +30,17 @@ if (isset($_GET[sjsuID])) {
             $result = mysql_fetch_array($result);
 
             $User = array();
-            $User["pollID"] = $result["pollID"];
-            $User["title"] = $result["title"];
-            $User["sjsuid"] = $result["user"];
-            $User["date"] = $result["date"];
+            $User["sjsuid"] = $result["SJSUID"];
+            $User["Password"] = $result["Password"];
+            $User["firstName"] = $result["firstName"];
+            $User["lastName"] = $result["lastName"];
             // success
             $response["success"] = 1;
 
             // user node
-            $response["polls"] = array();
+            $response["User"] = array();
 
-            array_push($response["polls"], $User);
+            array_push($response["User"], $User);
 
             // echoing JSON response
             echo json_encode($response);

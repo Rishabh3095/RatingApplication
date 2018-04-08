@@ -6,7 +6,7 @@
 // array for JSON response
 $response = array();
 // check for required fields
-if (isset($_POST['title'])&& isset($_POST['sjsuid']&& isset($_POST['date']))) {
+if (isset($_POST['title'])&& isset($_POST['sjsuid'])&& isset($_POST['date'])) {
     
     $sjsuid = $_POST['sjsuid'];
     $title = $_POST['title'];

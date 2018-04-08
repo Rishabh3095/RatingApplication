@@ -21,14 +21,14 @@ if (isset($_POST["sjsuid"])&&isset($_POST["password"])) {
 	$password = $_POST['password'];
 	
     // get a user from products table
-    $result = mysql_query("SELECT *FROM user WHERE SJSUID = '$name'");
+    $result = mysql_query("SELECT * FROM User WHERE SJSUID = $name");
 	
     if (!empty($result)) {
 		
         // check for empty result
 		$row = mysql_fetch_array($result);
 		
-        if ($row["password"]==$password) {
+        if ($row["Password"]==$password) {
 
             // success
             $response["success"] = 1;
@@ -39,7 +39,7 @@ if (isset($_POST["sjsuid"])&&isset($_POST["password"])) {
             echo json_encode($response);
         } else {
             // no product found
-			if ($row["name"]==$name) {
+			if ($row["SJSUID"]==$name) {
 				$response["success"] = 2;
 				$response["message"] = "Wrong password";
 
@@ -56,7 +56,7 @@ if (isset($_POST["sjsuid"])&&isset($_POST["password"])) {
         }
     } else {
         // no product found
-        $response["success"] = 0;
+        $response["success"] = 3;
         $response["message"] = "No User found";
 
         // echo no users JSON

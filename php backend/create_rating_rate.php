@@ -9,12 +9,11 @@
 $response = array();
 
 // check for required fields
-if (isset($_POST['title'])&& isset($_POST['maxRate'])&& isset($_POST['sjsuid'])&& isset($_POST['date'])) {
+if (isset($_POST['SJSUID'])&& isset($_POST['ratingID'])&& isset($_POST['score'])) {
     
-    $sjsuid = $_POST['sjsuid'];
-    $title = $_POST['title'];
-    $maxRate = $_POST['maxRate'];
-    $date =$_POST['date'];
+    $userID = $_POST['SJSUID'];
+    $ratingID = $_POST['ratingID'];
+    $score = $_POST['score'];
     
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -24,7 +23,7 @@ if (isset($_POST['title'])&& isset($_POST['maxRate'])&& isset($_POST['sjsuid'])&
     
 
     // mysql inserting a new row
-    $result = mysql_query("INSERT INTO Rating( title, maxRate, user, date) VALUES('$title', '$maxRate', '$sjsuid' , '$date')");
+    $result = mysql_query("INSERT INTO RatingRate(userID, ratingID, score) VALUES('$userID', '$ratingID' , '$score')");
 
     // check if row inserted or not
     if ($result) {
