@@ -590,9 +590,10 @@ public class Connect {
                     // adding each child node to HashMap key => value
                     map.put(TAG_RATING_ID, ratingID);
                     map.put(TAG_TITLE, title);
-                    map.put(TAG_DATE, date);
-                    map.put(TAG_SJSUID, sjsuid);
                     map.put(TAG_MAX_RATE, maxRate);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_DATE, date);
+
 
                     // adding HashMap to ArrayList
                     ratingsList.add(map);
@@ -606,4 +607,7 @@ public class Connect {
         }
         return null;
     }
+
+
+
 }
