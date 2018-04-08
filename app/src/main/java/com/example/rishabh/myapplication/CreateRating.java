@@ -43,7 +43,7 @@ public class CreateRating extends AppCompatActivity
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 Connect.createRating(title, maxRate, User.get().getID(), date);
-                startActivity(new Intent(CreateRating.this, UserRatings.class));
+                finish();
             }
         });
     }

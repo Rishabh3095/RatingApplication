@@ -13,7 +13,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.AllRatings.TAG_RATING_TITLE;
+import static com.example.rishabh.myapplication.Connect.TAG_DATE;
+import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
+import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_RATE;
+import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class RatingActivity extends AppCompatActivity
 {
@@ -23,7 +27,10 @@ public class RatingActivity extends AppCompatActivity
     TextView ratingAverageValue;
     TextView ratingSliderValue;
     Button updateRating;
-    ArrayList<HashMap<String, String>> ratingData;
+    HashMap<String, String> ratingData;
+    HashMap<String, String> ratingRate;
+
+    int maxRatingValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,36 +45,42 @@ public class RatingActivity extends AppCompatActivity
 
 
         Bundle extras = getIntent().getExtras();
-        String ratingTitle = null;
+        String ratingID = null;
         if (extras != null) {
-            ratingTitle = extras.getString(TAG_RATING_TITLE);
+            ratingID = extras.getString(TAG_RATING_TITLE);
         } else
             Log.wtf(TAG, "No rating name sent over");
 
-        ratingTitleField.setText(ratingTitle);
 
         // Terrible workaround to avoid NetworkOnMainThreadException
         // TODO: move Connect.getRatingRate() to non-UI thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        ratingData = Connect.getRatingRate(ratingTitle);
-        String averageRating = null;
-        if (ratingData != null) {
-            averageRating = ratingData.get(0).get(TAG_RATING_RATE);
+        ratingRate = Connect.getRatingRate(ratingID).get(0);
+        for (HashMap<String, String> hashMap : Connect.getAllRatings()) {
+            if (Integer.parseInt(ratingID) == Integer.parseInt(hashMap.get(TAG_RATING_ID))) {
+                ratingData = hashMap;
+            }
         }
-        else Log.wtf(TAG, "Connect.getRatingRate(ratingTitle) is returning null");
 
-        ratingAverageValue.setText("Overall rating: " + averageRating + " /placeholder");
+        String averageRating;
+        if (ratingData != null && ratingRate != null) {
+            maxRatingValue = Integer.parseInt(ratingData.get(TAG_MAX_RATE));
+            averageRating = ratingRate.get(TAG_RATING_RATE);
+            String ratingTitle = ratingData.get(TAG_TITLE);
+            ratingTitleField.setText(ratingTitle);
+            ratingAverageValue.setText("Overall rating: " + averageRating + " /" + maxRatingValue);
+        } else Log.wtf(TAG, "Connect.getRatingRate() or Connect.getAllRatings() is returning null");
 
-        // TODO: implement rating data retrieval and display
+
         SeekBar ratingSeekBar = (SeekBar) findViewById(R.id.seek_bar_rating);
-        //ratingSeekBar.setMax(INSERT MAX RATING AMOUNT HERE);
+        ratingSeekBar.setMax(maxRatingValue);
         ratingSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                ratingSliderValue.setText(getString(R.string.your_rating) + progress);
+                ratingSliderValue.setText("Your rating: " + progress + "/" + maxRatingValue);
             }
 
             @Override

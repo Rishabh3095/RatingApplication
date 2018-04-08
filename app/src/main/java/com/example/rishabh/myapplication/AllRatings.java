@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.Connect.TAG_DATE;
 import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
+import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllRatings extends AppCompatActivity {
@@ -40,8 +41,8 @@ public class AllRatings extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
             {
                 Intent intent = new Intent(AllRatings.this, RatingActivity.class);
-                String title = ((String) adapterView.getItemAtPosition(position)).substring(0, ((String) adapterView.getItemAtPosition(position)).indexOf(" |"));
-                intent.putExtra(TAG_RATING_TITLE, title);
+                String ratingID = ((String) adapterView.getItemAtPosition(position)).substring(0, ((String) adapterView.getItemAtPosition(position)).indexOf(" |"));
+                intent.putExtra(TAG_RATING_TITLE, ratingID);
                 startActivity(intent);
             }
         });
@@ -57,7 +58,7 @@ public class AllRatings extends AppCompatActivity {
         for(HashMap<String, String> hashMap : Connect.getAllRatings())
         {
             // TODO: retrieve rating and display instead of placeholder text
-            String formatted = String.format("%s | %10.10s | %s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), "RATING/" + hashMap.get(TAG_MAX_RATE));
+            String formatted = String.format("%s | %s | %10.10s | %s",hashMap.get(TAG_RATING_ID),hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), "RATING/" + hashMap.get(TAG_MAX_RATE));
             ratingTitles.add(formatted);
         }
         return ratingTitles;
