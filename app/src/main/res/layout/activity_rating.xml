@@ -17,11 +17,27 @@
         android:textStyle="bold|italic"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/text_view_average_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textStyle="bold"
+        android:text="@string/overall_rating"/>
+
+    <TextView
+        android:id="@+id/text_view_current_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_rating"/>
+
     <SeekBar
         android:id="@+id/seek_bar_rating"
         android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:min="0"
+        />
 
     <Button
         android:id="@+id/button_update_rating"

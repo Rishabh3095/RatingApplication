@@ -41,6 +41,7 @@ public class AllRatings extends AppCompatActivity {
             {
                 Intent intent = new Intent(AllRatings.this, RatingActivity.class);
                 intent.putExtra(TAG_RATING_TITLE, (String) adapterView.getSelectedItem());
+                startActivity(intent);
             }
         });
     }
