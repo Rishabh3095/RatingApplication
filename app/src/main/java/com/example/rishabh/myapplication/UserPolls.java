@@ -76,7 +76,7 @@ public class UserPolls extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         pollTitles.clear();
-        for(HashMap<String, String> hashMap : Connect.getUserPolls())
+        for(HashMap<String, String> hashMap : Connect.getUserPolls(User.get().getID()))
         {
             // TODO: retrieve rating and display instead of placeholder text
             String formatted = String.format("%s | %10.10s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE));
