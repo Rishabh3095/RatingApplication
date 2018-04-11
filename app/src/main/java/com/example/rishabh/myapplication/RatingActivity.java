@@ -28,7 +28,7 @@ public class RatingActivity extends AppCompatActivity
     TextView ratingSliderValue;
     Button updateRating;
     HashMap<String, String> ratingData;
-    HashMap<String, String> ratingRate;
+    int ratingRate;
     SeekBar ratingSeekBar;
     String ratingID;
 
@@ -58,20 +58,18 @@ public class RatingActivity extends AppCompatActivity
         // TODO: move Connect.getRatingRate() to non-UI thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        ratingRate = Connect.getRatingRate(ratingID).get(0);
+        ratingRate = Connect.getRatingRate(ratingID);
         for (HashMap<String, String> hashMap : Connect.getAllRatings()) {
             if (Integer.parseInt(ratingID) == Integer.parseInt(hashMap.get(TAG_RATING_ID))) {
                 ratingData = hashMap;
             }
         }
 
-        String averageRating;
-        if (ratingData != null && ratingRate != null) {
+        if (ratingData != null) {
             maxRatingValue = Integer.parseInt(ratingData.get(TAG_MAX_RATE));
-            averageRating = ratingRate.get(TAG_RATING_RATE);
             String ratingTitle = ratingData.get(TAG_TITLE);
             ratingTitleField.setText(ratingTitle);
-            ratingAverageValue.setText("Overall rating: " + averageRating + " /" + maxRatingValue);
+            ratingAverageValue.setText("Overall rating: " + ratingRate + " /" + maxRatingValue);
         } else Log.wtf(TAG, "Connect.getRatingRate() or Connect.getAllRatings() is returning null");
 
 

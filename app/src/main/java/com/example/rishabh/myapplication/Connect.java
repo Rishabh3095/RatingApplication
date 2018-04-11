@@ -285,16 +285,12 @@ public class Connect {
         }
         return false;
     }
-    public static ArrayList<HashMap<String, String>> getRatingRate(String ratingid) {
+    public static int getRatingRate(String ratingid) {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
-        ArrayList<HashMap<String, String>> ratingsList;
-
         // url to get all posted ratings
         String url_get_ratings = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_rating_rate.php";
-
-        ratingsList = new ArrayList<HashMap<String, String>>();
 
         // activities JSONArray
         JSONArray ratings = null;
@@ -307,6 +303,7 @@ public class Connect {
         // Check your log cat for JSON response
         Log.d("RatingRate: ", json.toString());
 
+        int averageRating = 0;
         try {
             // Checking for SUCCESS TAG
             int success = json.getInt(TAG_SUCCESS);
@@ -322,22 +319,13 @@ public class Connect {
 
                     // Storing each json item in variable
                     String score = c.getString(TAG_RATING_RATE);
-                    // creating new HashMap
-                    HashMap<String, String> map = new HashMap<String, String>();
-
-                    // adding each child node to HashMap key => value
-                    map.put(TAG_RATING_RATE, score);
-                    // adding HashMap to ArrayList
-                    ratingsList.add(map);
+                    averageRating = Double.valueOf(score).intValue();
                 }
-                return ratingsList;
-            } else {
-                return null;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return averageRating;
     }
 
     public static ArrayList<HashMap<String, String>> getAllPolls() {
