@@ -15,7 +15,8 @@ import java.util.List;
 /**
  * Created by Weston Newby on 11/3/2014.
  */
-public class Connect {
+public class Connect
+{
 
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SJSUID = "sjsuid";
@@ -35,8 +36,8 @@ public class Connect {
     public static final String TAG_USER = "User";
 
 
-
-    public static boolean newUser(String sjsuid, String first_name, String last_name, String password) {
+    public static boolean newUser(String sjsuid, String first_name, String last_name, String password)
+    {
 
         JSONParser jsonParser = new JSONParser();
         String url_create_user = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_user.php";
@@ -73,7 +74,8 @@ public class Connect {
         return false;
     }
 
-    public static int login(String sjsuid, String password) {
+    public static int login(String sjsuid, String password)
+    {
         int success;
         JSONParser jsonParser = new JSONParser();
         String url_login = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/login.php";
@@ -107,7 +109,8 @@ public class Connect {
         return 0;
     }
 
-    public static ArrayList<HashMap<String, String>> getAllRatings() {
+    public static ArrayList<HashMap<String, String>> getAllRatings()
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -172,7 +175,8 @@ public class Connect {
         return null;
     }
 
-    public static boolean createRating(String title, String maxRate, String sjsuid, String date) {
+    public static boolean createRating(String title, String maxRate, String sjsuid, String date)
+    {
         JSONParser jsonParser = new JSONParser();
         String url_create_rating = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_rating.php";
         //
@@ -211,7 +215,8 @@ public class Connect {
         return false;
     }
 
-    public static boolean createPoll(String title, String sjsuid, String date) {
+    public static boolean createPoll(String title, String sjsuid, String date)
+    {
         JSONParser jsonParser = new JSONParser();
         String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_poll.php";
         //
@@ -248,7 +253,9 @@ public class Connect {
         }
         return false;
     }
-    public static boolean createRatingRate(String sjsuid,String ratingid, String score) {
+
+    public static boolean createRatingRate(String sjsuid, String ratingid, String score)
+    {
         JSONParser jsonParser = new JSONParser();
         String url_create_rating = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_rating_rate.php";
         //
@@ -285,7 +292,9 @@ public class Connect {
         }
         return false;
     }
-    public static int getRatingRate(String ratingid) {
+
+    public static int getRatingRate(String ratingid)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -319,7 +328,8 @@ public class Connect {
 
                     // Storing each json item in variable
                     String score = c.getString(TAG_RATING_RATE);
-                    averageRating = Double.valueOf(score).intValue();
+                    if (score != "null")
+                        averageRating = Double.valueOf(score).intValue();
                 }
             }
         } catch (JSONException e) {
@@ -328,7 +338,8 @@ public class Connect {
         return averageRating;
     }
 
-    public static ArrayList<HashMap<String, String>> getAllPolls() {
+    public static ArrayList<HashMap<String, String>> getAllPolls()
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -392,8 +403,8 @@ public class Connect {
     }
 
 
-
-    public static ArrayList<HashMap<String, String>> getUser(String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getUser(String sjsuID)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -457,7 +468,8 @@ public class Connect {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getUserPolls(String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getUserPolls(String sjsuID)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -521,7 +533,8 @@ public class Connect {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getRatingByTitle(String title1) {
+    public static ArrayList<HashMap<String, String>> getRatingByTitle(String title1)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -587,7 +600,8 @@ public class Connect {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getUserRatings(String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getUserRatings(String sjsuID)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
@@ -653,7 +667,8 @@ public class Connect {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getSpecificRating(String title1, String sjsuID) {
+    public static ArrayList<HashMap<String, String>> getSpecificRating(String title1, String sjsuID)
+    {
         // Creating JSON Parser object
         JSONParser jParser = new JSONParser();
 
