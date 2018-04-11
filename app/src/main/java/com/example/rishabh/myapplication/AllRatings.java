@@ -58,7 +58,8 @@ public class AllRatings extends AppCompatActivity {
         for(HashMap<String, String> hashMap : Connect.getAllRatings())
         {
             // TODO: retrieve rating and display instead of placeholder text
-            String formatted = String.format("%s | %s | %10.10s | %s",hashMap.get(TAG_RATING_ID),hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), "RATING/" + hashMap.get(TAG_MAX_RATE));
+            int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
+            String formatted = String.format("%s | %s | %10.10s | %s",hashMap.get(TAG_RATING_ID),hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
             ratingTitles.add(formatted);
         }
         return ratingTitles;
