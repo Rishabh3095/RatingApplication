@@ -18,7 +18,8 @@ import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
-public class AllRatings extends AppCompatActivity {
+public class AllRatings extends AppCompatActivity
+{
 
     public static final String TAG_RATING_TITLE = "rating_id";
     private ListView mListView;
@@ -27,7 +28,8 @@ public class AllRatings extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_ratings);
         ratingTitles = new ArrayList<>();
@@ -48,20 +50,26 @@ public class AllRatings extends AppCompatActivity {
         });
     }
 
-    private ArrayList<String> updateRatingTitles() {
+    private ArrayList<String> updateRatingTitles()
+    {
         // Terrible workaround to avoid NetworkOnMainThreadException
         // TODO: move Connect.getAllRatings() to non-UI thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         ratingTitles.clear();
-        for(HashMap<String, String> hashMap : Connect.getAllRatings())
-        {
-            // TODO: retrieve rating and display instead of placeholder text
-            int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
-            String formatted = String.format("%s | %s | %10.10s | %s",hashMap.get(TAG_RATING_ID),hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
-            ratingTitles.add(formatted);
-        }
+
+        ArrayList<HashMap<String, String>> allRatings = Connect.getAllRatings();
+
+        if (allRatings == null)
+            ratingTitles.add("No ratings exist yet. You should add one!");
+        else
+            for (HashMap<String, String> hashMap : allRatings) {
+                // TODO: retrieve rating and display instead of placeholder text
+                int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
+                String formatted = String.format("%s | %s | %10.10s | %s", hashMap.get(TAG_RATING_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
+                ratingTitles.add(formatted);
+            }
         return ratingTitles;
     }
 }
