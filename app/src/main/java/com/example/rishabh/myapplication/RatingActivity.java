@@ -1,6 +1,5 @@
 package com.example.rishabh.myapplication;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +10,11 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.AllRatings.TAG_RATING_TITLE;
-import static com.example.rishabh.myapplication.Connect.TAG_DATE;
 import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
-import static com.example.rishabh.myapplication.Connect.TAG_RATING_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class RatingActivity extends AppCompatActivity
@@ -105,11 +101,11 @@ public class RatingActivity extends AppCompatActivity
         String ratingId = ratingID;
         String score = Integer.toString(ratingSeekBar.getProgress());
         new submitVote().execute(sjsuId,ratingId,score);
-        startActivity(new Intent(RatingActivity.this, Menu.class));
+        finish();
     }
 
     /**
-     * @param String sjsuid, String ratingid, String score
+     * execute params expected: String sjsuid, String ratingid, String score
      */
     private class submitVote extends AsyncTask<String, Void, Void>{
 

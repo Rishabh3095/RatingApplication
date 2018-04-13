@@ -1,7 +1,7 @@
 package com.example.rishabh.myapplication;
 
 import android.content.Intent;
-import android.os.StrictMode;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +22,6 @@ public class AllRatings extends AppCompatActivity
 {
 
     public static final String TAG_RATING_TITLE = "rating_id";
-    private ListView mListView;
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> ratingTitles;
 
@@ -34,8 +33,8 @@ public class AllRatings extends AppCompatActivity
         setContentView(R.layout.activity_all_ratings);
         ratingTitles = new ArrayList<>();
 
-        mListView = (ListView) findViewById(R.id.listview_all_ratings);
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updateRatingTitles());
+        ListView mListView = (ListView) findViewById(R.id.listview_all_ratings);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ratingTitles);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new OnItemClickListener()
         {
@@ -50,26 +49,38 @@ public class AllRatings extends AppCompatActivity
         });
     }
 
-    private ArrayList<String> updateRatingTitles()
+    @Override
+    protected void onResume()
     {
-        // Terrible workaround to avoid NetworkOnMainThreadException
-        // TODO: move Connect.getAllRatings() to non-UI thread
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        super.onResume();
+        new getRatingDataTask().execute();
+    }
 
-        ratingTitles.clear();
-
-        ArrayList<HashMap<String, String>> allRatings = Connect.getAllRatings();
-
-        if (allRatings == null)
-            ratingTitles.add("No ratings exist yet. You should add one!");
-        else
-            for (HashMap<String, String> hashMap : allRatings) {
-                // TODO: retrieve rating and display instead of placeholder text
-                int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
-                String formatted = String.format("%s | %s | %10.10s | %s", hashMap.get(TAG_RATING_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
-                ratingTitles.add(formatted);
+    private class getRatingDataTask extends AsyncTask<Void, Void, ArrayList<String>>
+    {
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids)
+        {
+            ArrayList<String> strings = new ArrayList<>();
+            ArrayList<HashMap<String, String>> allRatings = Connect.getAllRatings();
+            if (allRatings == null) {
+                strings.add("No ratings have been submitted. You should submit one!");
+            } else {
+                for (HashMap<String, String> hashMap : allRatings) {
+                    int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
+                    String formatted = String.format("%s | %s | %10.10s | %s", hashMap.get(TAG_RATING_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
+                    strings.add(formatted);
+                }
             }
-        return ratingTitles;
+            return strings;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings)
+        {
+            ratingTitles.clear();
+            ratingTitles.addAll(strings);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
