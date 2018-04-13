@@ -1,6 +1,7 @@
 package com.example.rishabh.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,14 +99,28 @@ public class RatingActivity extends AppCompatActivity
         });
     }
 
-    // TODO: implement rating vote update
     public void updateRating(View view)
     {
-        // Terrible workaround to avoid NetworkOnMainThreadException
-        // TODO: move Connect.getRatingRate() to non-UI thread
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Connect.createRatingRate(User.get().getID(),ratingID,Integer.toString(ratingSeekBar.getProgress()));
+        String sjsuId = User.get().getID();
+        String ratingId = ratingID;
+        String score = Integer.toString(ratingSeekBar.getProgress());
+        new submitVote().execute(sjsuId,ratingId,score);
         startActivity(new Intent(RatingActivity.this, Menu.class));
+    }
+
+    /**
+     * @param String sjsuid, String ratingid, String score
+     */
+    private class submitVote extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... strings)
+        {
+            String sjsuId = strings[0];
+            String ratingId = strings[1];
+            String score = strings[2];
+            Connect.createRatingRate(sjsuId,ratingId,score);
+            return null;
+        }
     }
 }
