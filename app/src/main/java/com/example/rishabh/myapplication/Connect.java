@@ -97,10 +97,15 @@ public class Connect
             if (success == 1) {
                 //user info correct
                 return 1;
-            }
-            if (success == 2) {
+            } else if (success == 2) {
                 //user exists, but password is wrong
                 return 2;
+            } else if (success == 3) {
+                //duplicate users with same id but different passwords exist
+                return 3;
+            } else if (success ==4) {
+                //multiple identical users exist
+                return 4;
             }
 
         } catch (JSONException e) {
