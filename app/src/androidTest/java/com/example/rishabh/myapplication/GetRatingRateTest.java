@@ -1,7 +1,5 @@
 package com.example.rishabh.myapplication;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
@@ -10,8 +8,10 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.rishabh.myapplication.Connect.TAG_DATE;
 import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
+import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 import static org.junit.Assert.*;
 
 /**
@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 public class GetRatingRateTest
 {
     ArrayList<HashMap<String, String>> allRatings;
+    ArrayList<HashMap<String, String>> adminRatings;
 
     @Test
     public void retrieveAllRatings() throws Exception
@@ -32,6 +33,20 @@ public class GetRatingRateTest
         if (allRatings != null) {
             for (HashMap<String, String> hashMap : allRatings) {
                 assertEquals(false, hashMap.isEmpty());
+            }
+        }
+    }
+
+    @Test
+    public void checkValuesNotNull() throws Exception
+    {
+        if (allRatings != null) {
+            for (HashMap<String, String> hashMap : allRatings) {
+                assertNotNull(hashMap.get(TAG_RATING_ID));
+                assertNotNull(Connect.getRatingRate(hashMap.get(TAG_RATING_ID)));
+                assertNotNull(hashMap.get(TAG_TITLE));
+                assertNotNull(hashMap.get(TAG_DATE));
+                assertNotNull(hashMap.get(TAG_MAX_RATE));
             }
         }
     }
@@ -47,4 +62,42 @@ public class GetRatingRateTest
             }
         }
     }
+
+    @Test
+    public void retrieveAllAdminRatings() throws Exception
+    {
+        adminRatings = Connect.getAllRatings();
+        if (adminRatings != null) {
+            for (HashMap<String, String> hashMap : adminRatings) {
+                assertEquals(false, hashMap.isEmpty());
+            }
+        }
+    }
+
+    @Test
+    public void checkAdminValuesNotNull() throws Exception
+    {
+        if (adminRatings != null) {
+            for (HashMap<String, String> hashMap : adminRatings) {
+                assertNotNull(hashMap.get(TAG_RATING_ID));
+                assertNotNull(Connect.getRatingRate(hashMap.get(TAG_RATING_ID)));
+                assertNotNull(hashMap.get(TAG_TITLE));
+                assertNotNull(hashMap.get(TAG_DATE));
+                assertNotNull(hashMap.get(TAG_MAX_RATE));
+           }
+        }
+    }
+
+    @Test
+    public void checkAdminRatingWithinRange() throws Exception
+    {
+        if (adminRatings != null) {
+            for (HashMap<String, String> hashMap : adminRatings) {
+                int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
+                int maxRating = Integer.parseInt(hashMap.get(TAG_MAX_RATE));
+                assertTrue(ratingRate >= maxRating);
+            }
+        }
+    }
+
 }
