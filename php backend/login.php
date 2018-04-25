@@ -16,7 +16,7 @@ require_once __DIR__ . '/db_connect.php';
 $db = new DB_CONNECT();
 
 // check for post data
-if (isset($_POST["sjsuid"])&&isset($_POST["password"])) {
+if (isset($_POST["sjsuid"]) && isset($_POST["password"])) {
     $name = $_POST['sjsuid'];
 	$password = $_POST['password'];
 	
@@ -29,11 +29,22 @@ if (isset($_POST["sjsuid"])&&isset($_POST["password"])) {
 		$row = mysql_fetch_array($result);
 		
         if ($row["Password"]==$password) {
+			$r = 1;
+			$message = "Password correct";
+			while($row1 =mysql_fetch_array($result)) {
+				if($row1["Password"]==$password && $r!=3 ) {
+					$r = 4;
+					$message = "duplicate, identical users";
+				} else if ($row1["Password"]!=$password){
+					$r = 3;
+					$message = "duplicate users with different passwords";
+				}
+			} 
 
             // success
-            $response["success"] = 1;
+            $response["success"] = $r;
 
-			$response["message"] = "Password correct!";
+			$response["message"] = $message;
 
             // echoing JSON response
             echo json_encode($response);
