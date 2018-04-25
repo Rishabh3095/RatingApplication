@@ -113,8 +113,6 @@ public class GetRatingRateTest
         }
     }
 
-    /*
-    User is not defined, these tests will always fail
 
     @Test
     public void checkAdminRatingWithinRange() throws Exception
@@ -128,6 +126,8 @@ public class GetRatingRateTest
         }
     }
 
+    /*
+    User is not defined, these tests will always fail
     @Test
     public void retrieveUserRatings() throws Exception
     {
