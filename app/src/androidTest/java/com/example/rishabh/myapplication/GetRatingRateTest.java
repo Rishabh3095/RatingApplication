@@ -25,6 +25,9 @@ public class GetRatingRateTest
 {
     ArrayList<HashMap<String, String>> allRatings;
     ArrayList<HashMap<String, String>> adminRatings;
+    ArrayList<HashMap<String, String>> allPolls;
+    ArrayList<HashMap<String, String>> userRatings;
+    ArrayList<HashMap<String, String>> userPolls;
 
     @Test
     public void retrieveAllRatings() throws Exception
@@ -75,6 +78,17 @@ public class GetRatingRateTest
     }
 
     @Test
+    public void retrieveAllPolls() throws Exception
+    {
+        allPolls = Connect.getAllPolls();
+        if (allPolls != null) {
+            for (HashMap<String, String> hashMap : allPolls) {
+                assertEquals(false, hashMap.isEmpty());
+            }
+        }
+    }
+
+    @Test
     public void checkAdminValuesNotNull() throws Exception
     {
         if (adminRatings != null) {
@@ -85,6 +99,17 @@ public class GetRatingRateTest
                 assertNotNull(hashMap.get(TAG_DATE));
                 assertNotNull(hashMap.get(TAG_MAX_RATE));
            }
+        }
+    }
+
+    @Test
+    public void retrieveUserPolls() throws Exception
+    {
+        userPolls = Connect.getUserPolls(User.get().getID());
+        if (userPolls != null) {
+            for (HashMap<String, String> hashMap : userPolls) {
+                assertEquals(false, hashMap.isEmpty());
+            }
         }
     }
 
@@ -100,4 +125,14 @@ public class GetRatingRateTest
         }
     }
 
+    @Test
+    public void retrieveUserRatings() throws Exception
+    {
+        userRatings = Connect.getUserRatings(User.get().getID());
+        if (userRatings != null) {
+            for (HashMap<String, String> hashMap : userRatings) {
+                assertEquals(false, hashMap.isEmpty());
+            }
+        }
+    }
 }
