@@ -39,6 +39,7 @@ public class AllPolls extends AppCompatActivity {
                 Intent intent = new Intent(AllPolls.this, PollActivity.class);
                 String pollID = ((String) adapterView.getItemAtPosition(position)).substring(0, ((String) adapterView.getItemAtPosition(position)).indexOf(" |"));
                 intent.putExtra(TAG_POLL_ID, pollID);
+                intent.putExtra(TAG_TITLE,pollTitles.get(position));
                 startActivity(intent);
             }
         });
