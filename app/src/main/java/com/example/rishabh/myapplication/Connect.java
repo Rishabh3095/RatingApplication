@@ -907,7 +907,7 @@ public class Connect
             if (success == 1) {
                 // activities found
                 // Getting Array of Products
-                ratings = json.getJSONArray(TAG_RATING_RATE);
+                ratings = json.getJSONArray(TAG_RATINGS);
 
                 // looping through All activities
                 for (int i = 0; i < ratings.length(); i++) {
