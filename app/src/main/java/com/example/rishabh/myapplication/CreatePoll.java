@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.example.rishabh.myapplication.Connect.TAG_POLL_ID;
 
 public class CreatePoll extends AppCompatActivity {
 
+    private List<EditText> editTextList = new ArrayList<EditText>();
 
     TextView create_poll_heading;
     TextView create_poll_info;
@@ -27,11 +30,13 @@ public class CreatePoll extends AppCompatActivity {
     private Button submit;
     private LinearLayout main, matrix;
 
+    public int editTextLines = 2;
+
     EditText poll_title;
     EditText poll_option1;
     EditText poll_option2;
-    EditText poll_option3;
-    EditText poll_option4;
+
+    ArrayList<String> pollOptions;
     Button create_poll_post;
 
 
@@ -42,6 +47,8 @@ public class CreatePoll extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         create_poll_heading = (TextView) findViewById(R.id.create_poll_heading);
         create_poll_info = (TextView) findViewById(R.id.create_poll_info);
         create_poll_to_menu = (Button) findViewById(R.id.create_poll_to_menu);
@@ -49,8 +56,6 @@ public class CreatePoll extends AppCompatActivity {
         poll_title = (EditText) findViewById(R.id.poll_title);
         poll_option1 = (EditText) findViewById(R.id.poll_option1);
         poll_option2 = (EditText) findViewById(R.id.poll_option2);
-        poll_option3 = (EditText) findViewById(R.id.poll_option3);
-        poll_option4 = (EditText) findViewById(R.id.poll_option4);
         create_poll_post = (Button) findViewById(R.id.create_poll_post);
 
         create_poll_post.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +65,6 @@ public class CreatePoll extends AppCompatActivity {
                 String title = poll_title.getText().toString();
                 String option1 = poll_option1.getText().toString();
                 String option2 = poll_option2.getText().toString();
-                String option3 = poll_option3.getText().toString();
-                String option4 = poll_option4.getText().toString();
 
                 // date will be formatted in yyyy-mm-dd format
                 String date = new java.sql.Date(new java.util.Date().getTime()).toString();
@@ -75,18 +78,22 @@ public class CreatePoll extends AppCompatActivity {
                     for (HashMap<String, String> hashMap : allRatings) {
                          pollID = hashMap.get(TAG_POLL_ID);
                     }
+
                 if (option1.length() != 0){
-                        Connect.createOption(User.get().getID(), pollID, option1);
+                    Connect.createOption(User.get().getID(), pollID, option1);
                 }
                 if (option2.length() != 0){
                     Connect.createOption(User.get().getID(), pollID, option2);
                 }
-                if (option3.length() != 0){
-                    Connect.createOption(User.get().getID(), pollID, option3);
+
+                for (EditText editText : editTextList) {
+                    if (editText.getText().toString().length() != 0){
+                        Connect.createOption(User.get().getID(), pollID, editText.getText().toString());
+                    }
+
                 }
-                if (option4.length() != 0){
-                    Connect.createOption(User.get().getID(), pollID, option4);
-                }
+
+
                 startActivity(new Intent(CreatePoll.this, UserPolls.class));
 
             }
@@ -96,9 +103,34 @@ public class CreatePoll extends AppCompatActivity {
         create_poll_to_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 startActivity(new Intent(CreatePoll.this, Menu.class));
             }
         });
 
+        final Button add_option = (Button) findViewById(R.id.add_option);
+        add_option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Add_Line();
+            }
+        });
+
+    }
+
+    public void Add_Line() {
+        LinearLayout ll = (LinearLayout)findViewById(R.id.layoutDec);
+        // add edittext
+        EditText et = new EditText(this);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        et.setLayoutParams(p);
+//        et.setText("");
+        editTextLines++;
+        et.setHint("Option" + editTextLines);
+        et.setId(editTextLines);
+        ll.addView(et);
+        editTextList.add(et);
     }
 }

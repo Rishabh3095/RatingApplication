@@ -6,11 +6,20 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/add_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="40dp"
+        android:text="Add option"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/create_poll_to_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:layout_marginTop="32dp"
         android:text="menu"
         android:textStyle="bold"
@@ -21,7 +30,6 @@
         android:id="@+id/create_poll_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Create Poll"
@@ -34,7 +42,6 @@
         android:id="@+id/create_poll_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
         android:text="Please enter your information below:"
@@ -55,6 +62,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/layoutDec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -83,23 +91,8 @@
                 android:hint="Second Option"
                 android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/poll_option3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Third Option"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/poll_option4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Fourth Option"
-                android:inputType="textPersonName" />
-
         </LinearLayout>
+
     </ScrollView>
 
     <Button
@@ -111,6 +104,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
