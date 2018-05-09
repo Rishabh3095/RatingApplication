@@ -907,7 +907,7 @@ public class Connect
             if (success == 1) {
                 // activities found
                 // Getting Array of Products
-                ratings = json.getJSONArray(TAG_RATING_RATE);
+                ratings = json.getJSONArray(TAG_RATINGS);
 
                 // looping through All activities
                 for (int i = 0; i < ratings.length(); i++) {
@@ -916,9 +916,9 @@ public class Connect
                     // Storing each json item in variable
                     String ratingID = c.getString(TAG_RATING_ID);
                     String title = c.getString(TAG_TITLE);
-                    String date = c.getString(TAG_DATE);
-                    String sjsuid = c.getString(TAG_SJSUID);
                     String maxRate = c.getString(TAG_MAX_RATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String date = c.getString(TAG_DATE);
 
                     // creating new HashMap
                     HashMap<String, String> map = new HashMap<String, String>();
