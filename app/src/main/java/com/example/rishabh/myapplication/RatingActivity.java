@@ -11,10 +11,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import static com.example.rishabh.myapplication.AllRatings.TAG_RATING_TITLE;
 import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
+import static com.example.rishabh.myapplication.Connect.TAG_SJSUID;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class RatingActivity extends AppCompatActivity
@@ -25,12 +27,14 @@ public class RatingActivity extends AppCompatActivity
     TextView ratingAverageValue;
     TextView ratingSliderValue;
     Button updateRating;
+    Button deleteRating;
     HashMap<String, String> ratingData;
     int ratingRate;
     SeekBar ratingSeekBar;
     String ratingID;
 
     int maxRatingValue;
+    String ratingTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +46,7 @@ public class RatingActivity extends AppCompatActivity
         ratingAverageValue = (TextView) findViewById(R.id.text_view_average_rating);
         ratingSliderValue = (TextView) findViewById(R.id.text_view_current_rating);
         updateRating = (Button) findViewById(R.id.button_update_rating);
+        deleteRating = (Button) findViewById(R.id.button_delete_rating);
 
 
         Bundle extras = getIntent().getExtras();
@@ -65,9 +70,14 @@ public class RatingActivity extends AppCompatActivity
 
         if (ratingData != null) {
             maxRatingValue = Integer.parseInt(ratingData.get(TAG_MAX_RATE));
-            String ratingTitle = ratingData.get(TAG_TITLE);
+            ratingTitle = ratingData.get(TAG_TITLE);
             ratingTitleField.setText(ratingTitle);
             ratingAverageValue.setText("Overall rating: " + ratingRate + " /" + maxRatingValue);
+            // hide delete rating button if not owner
+            if(!Objects.equals(User.get().getID(), ratingData.get(TAG_SJSUID)))
+                deleteRating.setVisibility(View.GONE);
+            else
+                deleteRating.setVisibility(View.VISIBLE);
         } else Log.wtf(TAG, "Connect.getRatingRate() or Connect.getAllRatings() is returning null");
 
 
@@ -101,6 +111,12 @@ public class RatingActivity extends AppCompatActivity
         String ratingId = ratingID;
         String score = Integer.toString(ratingSeekBar.getProgress());
         new submitVote().execute(sjsuId,ratingId,score);
+        finish();
+    }
+
+    public void deleteRating(View view)
+    {
+        Connect.deleteRating(ratingTitle);
         finish();
     }
 

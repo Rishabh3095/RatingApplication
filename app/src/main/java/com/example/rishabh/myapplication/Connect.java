@@ -34,6 +34,8 @@ public class Connect
     public static final String TAG_TITLE = "title";
     public static final String TAG_PASSWORD = "Password";
     public static final String TAG_USER = "User";
+    public static final String TAG_OPTIONID = "optionID";
+    public static final String TAG_VOTES = "votes";
 
 
     public static boolean newUser(String sjsuid, String first_name, String last_name, String password)
@@ -259,6 +261,154 @@ public class Connect
         return false;
     }
 
+    public static boolean voteOption(String optionTitle)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/vote_option.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", optionTitle));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean createOption(String sjsuid, String pollid, String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/create_option.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("sjsuid", sjsuid));
+        params.add(new BasicNameValuePair("pollid", pollid));
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean deletePoll(String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/delete_poll.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean deleteRating(String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/delete_rating.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean createRatingRate(String sjsuid, String ratingid, String score)
     {
         JSONParser jsonParser = new JSONParser();
@@ -538,6 +688,73 @@ public class Connect
         return null;
     }
 
+    public static ArrayList<HashMap<String, String>> getPollOptions(String pollid)
+    {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
+
+        ArrayList<HashMap<String, String>> pollsList;
+
+        // url to get all posted ratings
+        String url_get_polls = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_options_by_pollid.php";
+
+        pollsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray polls = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("pollID", pollid));
+
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_polls, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("Poll: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                polls = json.getJSONArray(TAG_POLLS);
+
+                // looping through All activities
+                for (int i = 0; i < polls.length(); i++) {
+                    JSONObject c = polls.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String optionID = c.getString(TAG_OPTIONID);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String pollID = c.getString(TAG_POLL_ID);
+                    String title = c.getString(TAG_TITLE);
+                    String votes = c.getString(TAG_VOTES);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_OPTIONID, optionID);
+                    map.put(TAG_SJSUID, sjsuid);
+                    map.put(TAG_POLL_ID, pollID);
+                    map.put(TAG_TITLE, title);
+                    map.put(TAG_VOTES, votes);
+
+                    // adding HashMap to ArrayList
+                    pollsList.add(map);
+                }
+                return pollsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static ArrayList<HashMap<String, String>> getRatingByTitle(String title1)
     {
         // Creating JSON Parser object
@@ -604,7 +821,62 @@ public class Connect
         }
         return null;
     }
+    public static ArrayList<HashMap<String, String>> getLastPoll()
+    {
+        // Creating JSON Parser object
+        JSONParser jParser = new JSONParser();
 
+        ArrayList<HashMap<String, String>> pollsList;
+
+        // url to get last poll
+        String url_get_polls = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/get_last_poll.php";
+
+        pollsList = new ArrayList<HashMap<String, String>>();
+
+        // activities JSONArray
+        JSONArray polls = null;
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        // getting JSON string from URL
+        JSONObject json = jParser.makeHttpRequest(url_get_polls, "GET", params);
+
+        // Check your log cat for JSON response
+        Log.d("Poll: ", json.toString());
+
+        try {
+            // Checking for SUCCESS TAG
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // activities found
+                // Getting Array of Products
+                polls = json.getJSONArray("polls");
+
+                // looping through All activities
+                for (int i = 0; i < polls.length(); i++) {
+                    JSONObject c = polls.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String pollID = c.getString(TAG_POLL_ID);
+
+                    // creating new HashMap
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    // adding each child node to HashMap key => value
+                    map.put(TAG_POLL_ID, pollID);
+                    // adding HashMap to ArrayList
+                    pollsList.add(map);
+                }
+                return pollsList;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static ArrayList<HashMap<String, String>> getUserRatings(String sjsuID)
     {
         // Creating JSON Parser object
@@ -621,12 +893,12 @@ public class Connect
         JSONArray ratings = null;
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+        params.add(new BasicNameValuePair("user", sjsuID));
         // getting JSON string from URL
         JSONObject json = jParser.makeHttpRequest(url_user_ratings, "GET", params);
 
         // Check your log cat for JSON response
-        Log.d("RatingRate: ", json.toString());
+        Log.d("Rating: ", json.toString());
 
         try {
             // Checking for SUCCESS TAG
@@ -635,7 +907,7 @@ public class Connect
             if (success == 1) {
                 // activities found
                 // Getting Array of Products
-                ratings = json.getJSONArray(TAG_RATING_RATE);
+                ratings = json.getJSONArray(TAG_RATINGS);
 
                 // looping through All activities
                 for (int i = 0; i < ratings.length(); i++) {
@@ -644,9 +916,9 @@ public class Connect
                     // Storing each json item in variable
                     String ratingID = c.getString(TAG_RATING_ID);
                     String title = c.getString(TAG_TITLE);
-                    String date = c.getString(TAG_DATE);
-                    String sjsuid = c.getString(TAG_SJSUID);
                     String maxRate = c.getString(TAG_MAX_RATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String date = c.getString(TAG_DATE);
 
                     // creating new HashMap
                     HashMap<String, String> map = new HashMap<String, String>();
