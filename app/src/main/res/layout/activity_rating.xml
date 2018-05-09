@@ -39,11 +39,22 @@
         android:min="0"
         />
 
-    <Button
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+            <Button
         android:id="@+id/button_update_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:onClick="updateRating"/>
+            <Button
+        android:id="@+id/button_delete_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:onClick="deleteRating"/>
+    </LinearLayout>
+
 </LinearLayout>
 
