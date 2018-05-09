@@ -19,7 +19,7 @@ import static com.example.rishabh.myapplication.Connect.TAG_FIRST_NAME;
 public class MainActivity extends AppCompatActivity {
     Button logIn;
     Button signUp;
-    ImageView image;
+
     EditText idField;
     EditText passwordField;
     @Override
