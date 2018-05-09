@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static com.example.rishabh.myapplication.Connect.TAG_DATE;
 import static com.example.rishabh.myapplication.Connect.TAG_MAX_RATE;
 import static com.example.rishabh.myapplication.Connect.TAG_RATING_ID;
+import static com.example.rishabh.myapplication.Connect.TAG_SJSUID;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class UserRatings extends AppCompatActivity
@@ -29,6 +31,7 @@ public class UserRatings extends AppCompatActivity
     public static final String TAG_RATING_TITLE = "rating_id";
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> ratingTitles;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,14 +69,18 @@ public class UserRatings extends AppCompatActivity
         protected ArrayList<String> doInBackground(Void... voids)
         {
             ArrayList<String> strings = new ArrayList<>();
-            ArrayList<HashMap<String, String>> userRatings = Connect.getUserRatings(User.get().getID());
-            if (userRatings == null) {
+            ArrayList<HashMap<String, String>> allRatings = Connect.getAllRatings();
+            if (allRatings == null) {
                 strings.add("You have not submitted any ratings. You should submit one!");
             } else {
-                for (HashMap<String, String> hashMap : userRatings) {
-                    int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
-                    String formatted = String.format("%s | %s | %10.10s | %s", hashMap.get(TAG_RATING_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
-                    strings.add(formatted);
+                for (HashMap<String, String> hashMap : allRatings) {
+                    // filter for user ID
+                    if (Objects.equals(hashMap.get(TAG_SJSUID), User.get().getID())) {
+                        int ratingRate = Connect.getRatingRate(hashMap.get(TAG_RATING_ID));
+                        String formatted = String.format("%s | %s | %10.10s | %s", hashMap.get(TAG_RATING_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE), ratingRate + "/" + hashMap.get(TAG_MAX_RATE));
+                        strings.add(formatted);
+                    }
+
                 }
             }
             return strings;
