@@ -1,9 +1,12 @@
 package com.example.rishabh.myapplication;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.os.StrictMode;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,39 +14,68 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rishabh.myapplication.Connect.TAG_DATE;
+import static com.example.rishabh.myapplication.Connect.TAG_POLL_ID;
 import static com.example.rishabh.myapplication.Connect.TAG_TITLE;
 
 public class AllPolls extends AppCompatActivity {
 
-    private ListView mListView;
     private ArrayAdapter<String> mAdapter;
-    private ArrayList<String> pollTitles;
-
+    private ArrayList<String> pollTitles = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_polls);
-        pollTitles = new ArrayList<>();
+        ListView mListView = (ListView) findViewById(R.id.listview_all_polls);
 
-        mListView = (ListView) findViewById(R.id.listview_all_polls);
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updatePollTitles());
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pollTitles);
         mListView.setAdapter(mAdapter);
-    }
-
-    private ArrayList<String> updatePollTitles() {
-        // Terrible workaround to avoid NetworkOnMainThreadException
-        // TODO: move Connect.getAllPolls() to non-UI thread
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        pollTitles.clear();
-        for(HashMap<String, String> hashMap : Connect.getAllPolls())
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
-            // TODO: retrieve rating and display instead of placeholder text
-            String formatted = String.format("%s | %10.10s",hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE));
-            pollTitles.add(formatted);
-        }
-        return pollTitles;
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+            {
+                Intent intent = new Intent(AllPolls.this, PollActivity.class);
+                String pollID = ((String) adapterView.getItemAtPosition(position)).substring(0, ((String) adapterView.getItemAtPosition(position)).indexOf(" |"));
+                intent.putExtra(TAG_POLL_ID, pollID);
+                startActivity(intent);
+            }
+        });
     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        new getRatingDataTask().execute();
+    }
+
+    private class getRatingDataTask extends AsyncTask<Void, Void, ArrayList<String>>
+    {
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids)
+        {
+            ArrayList<String> strings = new ArrayList<>();
+            ArrayList<HashMap<String, String>> allPolls = Connect.getAllPolls();
+            if (allPolls == null) {
+                strings.add("No polls have been submitted. You should submit one!");
+            } else {
+                for (HashMap<String, String> hashMap : allPolls) {
+                    String formatted = String.format("%s | %s | %10.10s", hashMap.get(TAG_POLL_ID), hashMap.get(TAG_TITLE), hashMap.get(TAG_DATE));
+                    strings.add(formatted);
+                }
+            }
+            return strings;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings)
+        {
+            pollTitles.clear();
+            pollTitles.addAll(strings);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

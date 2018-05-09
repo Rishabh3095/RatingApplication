@@ -261,7 +261,7 @@ public class Connect
         return false;
     }
 
-    public static boolean voteOption(String title)
+    public static boolean voteOption(String optionTitle)
     {
         JSONParser jsonParser = new JSONParser();
         String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/vote_option.php";
@@ -270,7 +270,7 @@ public class Connect
 
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("title", title));
+        params.add(new BasicNameValuePair("title", optionTitle));
 
         // getting JSON Object
         // Note that create product url accepts POST method
