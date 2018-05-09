@@ -916,9 +916,9 @@ public class Connect
                     // Storing each json item in variable
                     String ratingID = c.getString(TAG_RATING_ID);
                     String title = c.getString(TAG_TITLE);
-                    String date = c.getString(TAG_DATE);
-                    String sjsuid = c.getString(TAG_SJSUID);
                     String maxRate = c.getString(TAG_MAX_RATE);
+                    String sjsuid = c.getString(TAG_SJSUID);
+                    String date = c.getString(TAG_DATE);
 
                     // creating new HashMap
                     HashMap<String, String> map = new HashMap<String, String>();
