@@ -261,6 +261,43 @@ public class Connect
         return false;
     }
 
+    public static boolean voteOption(String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/vote_option.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static boolean createOption(String sjsuid, String pollid, String title)
     {
         JSONParser jsonParser = new JSONParser();
@@ -299,7 +336,79 @@ public class Connect
         }
         return false;
     }
+    public static boolean deletePoll(String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/delete_poll.php";
+        //
+        //
 
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean deleteRating(String title)
+    {
+        JSONParser jsonParser = new JSONParser();
+        String url_create_poll = "http://ec2-54-200-47-19.us-west-2.compute.amazonaws.com/delete_rating.php";
+        //
+        //
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", title));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_poll,
+                "POST", params);
+
+        // check log cat for response
+        Log.d("Create Response", json.toString());
+
+        // check for success tag
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                return true;
+
+            } else {
+                // failed to create product
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean createRatingRate(String sjsuid, String ratingid, String score)
     {
         JSONParser jsonParser = new JSONParser();
