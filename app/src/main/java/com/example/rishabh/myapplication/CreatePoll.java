@@ -75,6 +75,18 @@ public class CreatePoll extends AppCompatActivity {
                     for (HashMap<String, String> hashMap : allRatings) {
                          pollID = hashMap.get(TAG_POLL_ID);
                     }
+                if (option1.length() != 0){
+                        Connect.createOption(User.get().getID(), pollID, option1);
+                }
+                if (option2.length() != 0){
+                    Connect.createOption(User.get().getID(), pollID, option2);
+                }
+                if (option3.length() != 0){
+                    Connect.createOption(User.get().getID(), pollID, option3);
+                }
+                if (option4.length() != 0){
+                    Connect.createOption(User.get().getID(), pollID, option4);
+                }
                 startActivity(new Intent(CreatePoll.this, UserPolls.class));
 
             }
