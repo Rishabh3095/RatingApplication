@@ -893,12 +893,12 @@ public class Connect
         JSONArray ratings = null;
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("sjsuID", sjsuID));
+        params.add(new BasicNameValuePair("user", sjsuID));
         // getting JSON string from URL
         JSONObject json = jParser.makeHttpRequest(url_user_ratings, "GET", params);
 
         // Check your log cat for JSON response
-        Log.d("RatingRate: ", json.toString());
+        Log.d("Rating: ", json.toString());
 
         try {
             // Checking for SUCCESS TAG
