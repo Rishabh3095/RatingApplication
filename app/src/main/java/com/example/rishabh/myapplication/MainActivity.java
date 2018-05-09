@@ -19,12 +19,14 @@ import static com.example.rishabh.myapplication.Connect.TAG_FIRST_NAME;
 public class MainActivity extends AppCompatActivity {
     Button logIn;
     Button signUp;
+    ImageView image;
     EditText idField;
     EditText passwordField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         logIn = (Button) findViewById(R.id.button_login);
         signUp = (Button) findViewById(R.id.button_sign_up);
         idField = (EditText) findViewById(R.id.text_id_input);

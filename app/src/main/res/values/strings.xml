@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Yelp But For SJSU</string>
 
     <string name="title_activity_create_poll">CreatePoll</string>
     <string name="action_settings">Settings</string>
@@ -17,7 +17,7 @@
     <string name="logout">LOGOUT!</string>
     <string name="title_activity_user_ratings">UserRatings</string>
     <string name="title_activity_user_polls">UserPolls</string>
-    <string name="menu">menu</string>
+    <string name="menu">Menu</string>
     <string name="enter_the_title">Enter the title</string>
     <string name="maximum_rating_value">Maximum rating value</string>
     <string name="post">Post</string>
