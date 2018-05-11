@@ -20,22 +20,11 @@ android:padding="10dp">
         android:id="@+id/option_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/button_update_poll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:onClick="updateRating"/>
-    <Button
+   <Button
         android:id="@+id/button_delete_poll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete"
         android:onClick="deletePoll"/>
-</LinearLayout>
 
 </LinearLayout>

@@ -118,8 +118,10 @@ public class PollActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void aVoid)
         {
-            mAdapter.notifyDataSetChanged();
+            //mAdapter.notifyDataSetChanged();
             super.onPostExecute(aVoid);
+            // finish because I don't know how to update right away
+            finish();
         }
     }
 
