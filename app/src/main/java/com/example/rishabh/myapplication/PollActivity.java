@@ -44,7 +44,7 @@ public class PollActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 String optionTitle = titleFromDisplay(optionStrings.get(i));
-                new submitOptionVote().execute(titleFromDisplay(" " +optionTitle));
+                new submitOptionVote().execute(titleFromDisplay(optionTitle));
             }
         });
         String pollId = (String) getIntent().getExtras().get(TAG_POLL_ID);

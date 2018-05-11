@@ -95,10 +95,7 @@ public class CreatePoll extends AppCompatActivity
                     }
 
                 }
-
-
-                startActivity(new Intent(CreatePoll.this, UserPolls.class));
-
+                finish();
             }
         });
 
