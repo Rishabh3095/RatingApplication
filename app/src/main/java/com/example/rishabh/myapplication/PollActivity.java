@@ -23,6 +23,7 @@ public class PollActivity extends AppCompatActivity
     ListView optionsListView;
     ArrayList<String> optionStrings = new ArrayList<>();
     ArrayAdapter<String> mAdapter;
+    String pollTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,12 +31,9 @@ public class PollActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poll);
 
-        TextView pollTitle = (TextView) findViewById(R.id.text_view_poll_name);
-        // Get title from display string by extracting value between '|'
-        String displayString = getIntent().getExtras().get(TAG_TITLE).toString();
-        //displayString = displayString.substring(displayString.indexOf("|") + 1);
-        //displayString = displayString.substring(0, displayString.indexOf("|") - 1);
-        pollTitle.setText(titleFromDisplay(displayString));
+        pollTitle = titleFromDisplay(getIntent().getExtras().get(TAG_TITLE).toString());
+        TextView pollTitleView = (TextView) findViewById(R.id.text_view_poll_name);
+        pollTitleView.setText(pollTitle);
 
         optionsListView = (ListView) findViewById(R.id.option_list);
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, optionStrings);
@@ -46,8 +44,7 @@ public class PollActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 String optionTitle = titleFromDisplay(optionStrings.get(i));
-                Log.e(TAG, "-" + optionTitle + "-");
-                new submitOptionVote().execute(titleFromDisplay(optionTitle));
+                new submitOptionVote().execute(titleFromDisplay(" " +optionTitle));
             }
         });
         String pollId = (String) getIntent().getExtras().get(TAG_POLL_ID);
@@ -80,6 +77,30 @@ public class PollActivity extends AppCompatActivity
             optionStrings.clear();
             optionStrings.addAll(strings);
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void deletePoll(View v)
+    {
+        new deletePollTask().execute(pollTitle);
+    }
+
+    private class deletePollTask extends AsyncTask<String, Void, Void>
+    {
+
+        @Override
+        protected Void doInBackground(String... strings)
+        {
+            String pollTitle = strings[0];
+            Connect.deletePoll(pollTitle);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid)
+        {
+            super.onPostExecute(aVoid);
+            finish();
         }
     }
 

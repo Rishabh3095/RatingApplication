@@ -18,7 +18,8 @@ import java.util.List;
 
 import static com.example.rishabh.myapplication.Connect.TAG_POLL_ID;
 
-public class CreatePoll extends AppCompatActivity {
+public class CreatePoll extends AppCompatActivity
+{
 
     private List<EditText> editTextList = new ArrayList<EditText>();
 
@@ -41,12 +42,12 @@ public class CreatePoll extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         create_poll_heading = (TextView) findViewById(R.id.create_poll_heading);
@@ -58,9 +59,11 @@ public class CreatePoll extends AppCompatActivity {
         poll_option2 = (EditText) findViewById(R.id.poll_option2);
         create_poll_post = (Button) findViewById(R.id.create_poll_post);
 
-        create_poll_post.setOnClickListener(new View.OnClickListener() {
+        create_poll_post.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 String pollID = "";
                 String title = poll_title.getText().toString();
                 String option1 = poll_option1.getText().toString();
@@ -75,19 +78,19 @@ public class CreatePoll extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
                 Connect.createPoll(title, User.get().getID(), date);
                 ArrayList<HashMap<String, String>> allRatings = Connect.getLastPoll();
-                    for (HashMap<String, String> hashMap : allRatings) {
-                         pollID = hashMap.get(TAG_POLL_ID);
-                    }
+                for (HashMap<String, String> hashMap : allRatings) {
+                    pollID = hashMap.get(TAG_POLL_ID);
+                }
 
-                if (option1.length() != 0){
+                if (option1.length() != 0) {
                     Connect.createOption(User.get().getID(), pollID, option1);
                 }
-                if (option2.length() != 0){
+                if (option2.length() != 0) {
                     Connect.createOption(User.get().getID(), pollID, option2);
                 }
 
                 for (EditText editText : editTextList) {
-                    if (editText.getText().toString().length() != 0){
+                    if (editText.getText().toString().length() != 0) {
                         Connect.createOption(User.get().getID(), pollID, editText.getText().toString());
                     }
 
@@ -100,10 +103,11 @@ public class CreatePoll extends AppCompatActivity {
         });
 
 
-        create_poll_to_menu.setOnClickListener(new View.OnClickListener() {
+        create_poll_to_menu.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View view)
+            {
 
 
                 startActivity(new Intent(CreatePoll.this, Menu.class));
@@ -111,17 +115,20 @@ public class CreatePoll extends AppCompatActivity {
         });
 
         final Button add_option = (Button) findViewById(R.id.add_option);
-        add_option.setOnClickListener(new View.OnClickListener() {
+        add_option.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Add_Line();
             }
         });
 
     }
 
-    public void Add_Line() {
-        LinearLayout ll = (LinearLayout)findViewById(R.id.layoutDec);
+    public void Add_Line()
+    {
+        LinearLayout ll = (LinearLayout) findViewById(R.id.layoutDec);
         // add edittext
         EditText et = new EditText(this);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
